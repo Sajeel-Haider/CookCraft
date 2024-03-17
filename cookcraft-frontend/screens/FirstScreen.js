@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image,StyleSheet } from "react-native";
 import logo from "../assets/logo.jpg";
 
-const HomeScreen = () => {
+const FirstScreen = () => {
   return (
 
     <View style={styles.view}>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-export default HomeScreen;
+export default FirstScreen;
