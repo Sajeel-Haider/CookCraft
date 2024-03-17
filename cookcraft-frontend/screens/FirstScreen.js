@@ -1,12 +1,32 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image,StyleSheet } from "react-native";
+import logo from "../assets/logo.jpg";
 
-const FirstScreen = () => {
+const HomeScreen = () => {
   return (
-    <View className="flex-1 justify-center items-center space-y-10 bg-amber-500">
-      <Text> khudi chal gaya</Text>
+
+    <View style={styles.view}>
+        <Image source={logo} style={styles.Image} />
     </View>
   );
 };
+const styles = StyleSheet.create({
+  Image:{
+    width: 50,
+    height: 50,
+   
+  },
+  view:{
+    flex: 1, 
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
 
-export default FirstScreen;
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+export default HomeScreen;
