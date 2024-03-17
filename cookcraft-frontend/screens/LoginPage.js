@@ -7,19 +7,16 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-// Import any other libraries if needed, like for social sign-ins.
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-    // Implement your sign-in logic here
     console.log("Email:", email, "Password:", password);
   };
 
   const handleSocialSignIn = (service) => {
-    // Implement your social sign-in logic here
     console.log("Sign in with:", service);
   };
 

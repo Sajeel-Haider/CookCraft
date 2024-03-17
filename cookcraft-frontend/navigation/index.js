@@ -10,7 +10,7 @@ function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="First"
         screenOption={{ headerShown: false }}
       >
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
