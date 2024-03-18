@@ -11,7 +11,7 @@ function AppNavigation() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="First"
-        screenOption={{ headerShown: false }}
+        screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
         <Stack.Screen name="First" component={FirstScreen}></Stack.Screen>

@@ -1,4 +1,8 @@
 module.exports = {
   presets: ["module:metro-react-native-babel-preset"],
-  plugins: ["nativewind/babel"],
+  plugins: [
+    "@babel/plugin-proposal-export-namespace-from",
+    "react-native-reanimated/plugin",
+    "nativewind/babel",
+  ],
 };
