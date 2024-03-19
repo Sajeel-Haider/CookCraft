@@ -2,11 +2,14 @@ import React, { useEffect } from "react";
 import { View, Image } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
 import logo from "../assets/logo.jpg";
 
 const FirstScreen = () => {
   const ring_1_padding = useSharedValue(0);
   const ring_2_padding = useSharedValue(0);
+
+  const navigate = useNavigation();
 
   useEffect(() => {
     ring_1_padding.value = 0;
@@ -19,6 +22,8 @@ const FirstScreen = () => {
       () => (ring_2_padding.value = withSpring(ring_2_padding.value + hp(5.5))),
       300
     );
+
+    setTimeout(() => navigate.navigate("Home"), 2500);
   }, []);
 
   return (
