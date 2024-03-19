@@ -62,12 +62,13 @@ const LoginPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 25,
     justifyContent: "center",
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
+    marginBottom: 5,
   },
   subtitle: {
     fontSize: 20,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputfields: {
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
   input: {
     borderWidth: 1.8,
@@ -114,14 +115,14 @@ const styles = StyleSheet.create({
     color: "gray",
     paddingHorizontal: 10,
   },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-  socialIcon: {
-    width: 50,
-    height: 50,
-  },
+  // socialButtonsContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-evenly",
+  // },
+  // socialIcon: {
+  //   width: 50,
+  //   height: 50,
+  // },
   signUpText: {
     color: "black",
     textAlign: "center",
