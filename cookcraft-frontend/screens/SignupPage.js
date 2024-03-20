@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from "react-native";
-import Checkbox from 'expo-checkbox';
-// import { MaterialIcons } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import { CheckBox } from "expo";
 
+// import { MaterialIcons } from '@expo/vector-icons';
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -14,13 +21,24 @@ const SignUpPage = () => {
   const handleSignUp = () => {
     // Here, you would handle the sign-up logic, possibly validating
     // the input and then sending it to your backend.
-    console.log("Name:", name, "Email:", email, "Password:", password, "Confirm Password:", confirmPassword);
+    console.log(
+      "Name:",
+      name,
+      "Email:",
+      email,
+      "Password:",
+      password,
+      "Confirm Password:",
+      confirmPassword
+    );
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create an account</Text>
-      <Text style={styles.subtitle}>Let's help you set up your account, it won't take long.</Text>
+      <Text style={styles.subtitle}>
+        Let's help you set up your account, it won't take long.
+      </Text>
       <Text style={styles.inputfileds}>Name</Text>
       <TextInput
         style={styles.input}
@@ -58,8 +76,6 @@ const SignUpPage = () => {
           value={termsAccepted}
           onValueChange={setTermsAccepted}
           color={termsAccepted ? "#fbbd5c" : "#fbbd5c"}
-    
-
         />
         <Text style={styles.termsText}>Accept terms & Condition</Text>
       </View>
@@ -69,10 +85,11 @@ const SignUpPage = () => {
         {/* <MaterialIcons name="arrow-forward" size={24} color="white" style={tailwind('ml-2')} /> */}
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => console.log("Already a member ? Sign In")}>
+      <TouchableOpacity
+        onPress={() => console.log("Already a member ? Sign In")}
+      >
         <Text style={styles.signInText}>
-          Already a member ?
-          <Text style={styles.signInTextBold}> Sign In</Text>
+          Already a member ?<Text style={styles.signInTextBold}> Sign In</Text>
         </Text>
       </TouchableOpacity>
     </View>
@@ -84,7 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 25,
     justifyContent: "center",
-    backgroundColor: "white", 
+    backgroundColor: "white",
   },
   title: {
     fontSize: 28,
@@ -97,12 +114,12 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginBottom: 30,
   },
-  inputfileds:{
+  inputfileds: {
     paddingVertical: 5,
   },
   input: {
     borderWidth: 1.8,
-    borderRadius:8,
+    borderRadius: 8,
     borderColor: "#e2e2e2",
     padding: 10,
     marginBottom: 10,
@@ -111,11 +128,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    padding:10,
+    padding: 10,
   },
   termsText: {
-    fontSize:13,
-    color:"#fbbd5c",
+    fontSize: 13,
+    color: "#fbbd5c",
     marginLeft: 10,
   },
   signUpButton: {
@@ -136,7 +153,7 @@ const styles = StyleSheet.create({
   },
   signInTextBold: {
     fontWeight: "bold",
-    color:"#fbbd5c",
+    color: "#fbbd5c",
   },
   // Add styles for the rest of the elements as needed
 });
