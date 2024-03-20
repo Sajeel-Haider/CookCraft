@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import { logo } from "../assets/logo.jpg";
 import Svg, { Path } from "react-native-svg";
 import SearchBar from "../utils/HomePage/SearchBar";
+import IngredientsSection from "../components/HomeScreen/IngredientsSection";
 
 const HomeScreen = () => {
   return (
@@ -29,9 +30,8 @@ const HomeScreen = () => {
           />
         </Svg> */}
       </View>
-      <View>
-        <SearchBar />
-      </View>
+      <SearchBar />
+      <IngredientsSection />
     </View>
   );
 };

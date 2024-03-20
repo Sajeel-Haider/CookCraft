@@ -1,16 +1,39 @@
 import React from "react";
-import { View, TextInput, Text } from "react-native";
+import { View, TextInput } from "react-native";
 import { Icon } from "react-native-elements";
 
 const SearchBar = () => {
   return (
-    <View className="mt-4 bg-darkgrey rounded-full p-4 flex-row items-center">
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "black",
+        padding: 5,
+        borderRadius: 20,
+        marginTop: 10,
+      }}
+    >
       <TextInput
-        className="flex-1 mr-2"
+        style={{
+          color: "white",
+          flex: 1,
+          paddingLeft: 10,
+          marginRight: 5,
+        }}
         placeholder="Search"
         placeholderTextColor="gray"
       />
-      <Icon name="search" type="font-awesome" color="gray" size={20} />
+      <Icon
+        style={{
+          paddingRight: 10,
+        }}
+        name="search"
+        type="font-awesome"
+        color="gray"
+        size={20}
+      />
     </View>
   );
 };
