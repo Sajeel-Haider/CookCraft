@@ -5,6 +5,7 @@ import FirstScreen from "../screens/FirstScreen";
 import LoginPage from "../screens/LoginPage";
 import SignUpPage from "../screens/SignupPage";
 import GetStartedScreen from "../screens/GetStartedScreen";
+import RecipeDetails from "../screens/RecipeDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ function AppNavigation() {
           name="GetStarted"
           component={GetStartedScreen}
         ></Stack.Screen>
+        <Stack.Screen name="RecipeDetails" component={RecipeDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: "black", // Default text color
   },
   selectedIngredient: {
-    backgroundColor: "yellow", // Change to your desired selected color
+    backgroundColor: "#4CCD99", // Change to your desired selected color
   },
   selectedIngredientText: {
     color: "black", // Change to your desired selected text color
