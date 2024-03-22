@@ -110,10 +110,8 @@ const SignUpPage = () => {
         onPress={() => console.log("Already a member? Sign In")}
       >
         <Text style={styles.signInText}>
-          Already a member ?
-          <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}>
-            Sign In
-          </Text>
+          Already a member ? 
+          <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}> Sign In</Text>
         </Text>
       </TouchableOpacity>
     </View>

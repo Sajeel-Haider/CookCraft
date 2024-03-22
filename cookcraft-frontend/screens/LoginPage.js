@@ -61,7 +61,7 @@ const LoginPage = () => {
 
       <TouchableOpacity onPress={() => renderSignupScreen()}>
         <Text style={styles.signUpText}>
-          Don't have an account?
+          Don't have an account ?
           <Text style={styles.signUpTextorange}> Sign up</Text>
         </Text>
       </TouchableOpacity>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     textAlign: "left",
+    paddingLeft:5,
     color: "#fbbd5c",
   },
   signInButton: {
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   signUpTextorange: {
+    fontWeight:"bold",
     color: "#fbbd5c",
   },
 });
