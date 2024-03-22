@@ -7,17 +7,27 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigation();
+
   const handleSignIn = () => {
     console.log("Email:", email, "Password:", password);
+    renderHomeScreen();
   };
 
   const handleSocialSignIn = (service) => {
     console.log("Sign in with:", service);
+  };
+  const renderHomeScreen = () => {
+    navigate.navigate("Home");
+  };
+  const renderSignupScreen = () => {
+    navigate.navigate("Signup");
   };
 
   return (
@@ -46,10 +56,10 @@ const LoginPage = () => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
+        <Text style={styles.signInButtonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => console.log("Sign up")}>
+      <TouchableOpacity onPress={() => renderSignupScreen()}>
         <Text style={styles.signUpText}>
           Don't have an account?
           <Text style={styles.signUpTextorange}> Sign up</Text>
@@ -115,14 +125,6 @@ const styles = StyleSheet.create({
     color: "gray",
     paddingHorizontal: 10,
   },
-  // socialButtonsContainer: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-evenly",
-  // },
-  // socialIcon: {
-  //   width: 50,
-  //   height: 50,
-  // },
   signUpText: {
     color: "black",
     textAlign: "center",

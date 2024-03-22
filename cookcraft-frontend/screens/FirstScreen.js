@@ -23,7 +23,7 @@ const FirstScreen = () => {
       300
     );
 
-    setTimeout(() => navigate.navigate("Home"), 2500);
+    setTimeout(() => navigate.navigate("GetStarted"), 2500);
   }, []);
 
   return (

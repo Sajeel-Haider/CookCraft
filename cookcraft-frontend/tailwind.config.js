@@ -8,9 +8,8 @@ module.exports = {
       white: "rgb(255, 255, 255)",
       darkgrey: "#9ca3af",
       lightgrey: "rgb(230, 239, 246)",
-      customBlue: "#007AFF",
-
-      customGreen: "#00CC66",
+      primarycolorlight: "#4CCD99",
+      primarycolordark: "#007F73",
     },
   },
   plugins: [],

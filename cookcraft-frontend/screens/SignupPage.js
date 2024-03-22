@@ -5,11 +5,9 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  Image,
 } from "react-native";
-import { CheckBox } from "expo";
-
-// import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -18,9 +16,17 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
 
+  const navigate = useNavigation();
+
+  const renderLoginPage = () => {
+    navigate.navigate("Login");
+  };
+
+  const renderHomePage = () => {
+    navigate.navigate("Home");
+  };
+
   const handleSignUp = () => {
-    // Here, you would handle the sign-up logic, possibly validating
-    // the input and then sending it to your backend.
     console.log(
       "Name:",
       name,
@@ -29,8 +35,15 @@ const SignUpPage = () => {
       "Password:",
       password,
       "Confirm Password:",
-      confirmPassword
+      confirmPassword,
+      "Terms Accepted:",
+      termsAccepted
     );
+    renderHomePage();
+  };
+
+  const toggleTermsAcceptance = () => {
+    setTermsAccepted(!termsAccepted);
   };
 
   return (
@@ -72,24 +85,35 @@ const SignUpPage = () => {
       />
 
       <View style={styles.checkboxContainer}>
-        <Checkbox
-          value={termsAccepted}
-          onValueChange={setTermsAccepted}
-          color={termsAccepted ? "#fbbd5c" : "#fbbd5c"}
-        />
+        <TouchableOpacity
+          style={styles.checkbox}
+          onPress={toggleTermsAcceptance}
+        >
+          {termsAccepted ? (
+            <MaterialIcons name="check-box" size={24} color="#fbbd5c" />
+          ) : (
+            <MaterialIcons
+              name="check-box-outline-blank"
+              size={24}
+              color="#fbbd5c"
+            />
+          )}
+        </TouchableOpacity>
         <Text style={styles.termsText}>Accept terms & Condition</Text>
       </View>
 
       <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
-        {/* <MaterialIcons name="arrow-forward" size={24} color="white" style={tailwind('ml-2')} /> */}
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => console.log("Already a member ? Sign In")}
+        onPress={() => console.log("Already a member? Sign In")}
       >
         <Text style={styles.signInText}>
-          Already a member ?<Text style={styles.signInTextBold}> Sign In</Text>
+          Already a member ?
+          <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}>
+            Sign In
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>
@@ -130,10 +154,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
   },
+  checkbox: {
+    marginRight: 10,
+  },
   termsText: {
     fontSize: 13,
     color: "#fbbd5c",
-    marginLeft: 10,
   },
   signUpButton: {
     backgroundColor: "#129575",
@@ -155,7 +181,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fbbd5c",
   },
-  // Add styles for the rest of the elements as needed
 });
 
 export default SignUpPage;

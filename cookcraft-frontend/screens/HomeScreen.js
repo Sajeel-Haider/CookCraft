@@ -1,11 +1,32 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { logo } from "../assets/logo.jpg";
+import { spicy_chicken } from "../assets/spicy_chicken.jpg";
 import Svg, { Path } from "react-native-svg";
 import SearchBar from "../utils/HomePage/SearchBar";
 import IngredientsSection from "../components/HomeScreen/IngredientsSection";
+import RecipeCard from "../utils/HomePage/RecipeCard";
+import FooterNavigation from "../components/FooterNavigation";
 
 const HomeScreen = () => {
+  const cardData = [
+    {
+      image: spicy_chicken,
+      title: "Spiced Fried Chicken",
+      rating: "4.5",
+      time: "30 min",
+      authorName: "Yumna Azzahra",
+    },
+    {
+      image: spicy_chicken,
+      title: "Spiced Fried Chicken",
+      rating: "4.5",
+      time: "30 min",
+      authorName: "Yumna Azzahra",
+    },
+    // ... other cards
+  ];
+
   return (
     <View style={{ padding: 16 }}>
       <View className="flex-row">
@@ -32,8 +53,19 @@ const HomeScreen = () => {
       </View>
       <SearchBar />
       <IngredientsSection />
+
+      <ScrollView style={styles.container}>
+        {cardData.map((item, index) => (
+          <RecipeCard key={index} {...item} />
+        ))}
+      </ScrollView>
+      <FooterNavigation />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {},
+});
 
 export default HomeScreen;
