@@ -11,8 +11,12 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.16",
     "@react-navigation/native-stack": "^6.9.25",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
     "expo": "~50.0.13",
     "expo-status-bar": "~1.11.1",
+    "express": "^4.19.1",
+    "jsonwebtoken": "^9.0.2",
     "metro-react-native-babel-preset": "^0.77.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
@@ -32,5 +36,8 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "tailwindcss": "^3.3.2"
   },
-  "private": true
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
