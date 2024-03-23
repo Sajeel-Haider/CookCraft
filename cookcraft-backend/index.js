@@ -3,6 +3,9 @@ const connectDB = require("./database/db");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+app.get('/',(req,res)=>{
+  res.send('hello')
+})
 
 const startApp = async () => {
   try {
