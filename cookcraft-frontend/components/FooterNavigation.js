@@ -1,9 +1,17 @@
 // components/FooterNavigation.js
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // or any other icon set you want to use
 
 const FooterNavigation = () => {
+  const navigate = useNavigation();
+  const renderCreateRecipeScreen = () => {
+    navigate.navigate("CreateRecipe");
+  };
+  const renderProfileScreen = () => {
+    navigate.navigate("Profile");
+  };
   return (
     <View style={styles.navContainer}>
       <TouchableOpacity style={styles.navItem}>
@@ -18,11 +26,22 @@ const FooterNavigation = () => {
         <Icon name="plus-box" size={24} color="#808080" />
         <Text style={styles.navText}>Post</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
+      {/* <TouchableOpacity style={styles.navItem}>
         <Icon name="bookmark-outline" size={24} color="#808080" />
         <Text style={styles.navText}>Saved</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.navItem}>
+        <Icon name="fastfood" size={24} color="#808080" />
+        <Text style={styles.navText}>Meals</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.navItem}
+        onPress={renderCreateRecipeScreen}
+      >
+        <Icon name="fastfood" size={24} color="#808080" />
+        <Text style={styles.navText}>Recipes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navItem} onPress={renderProfileScreen}>
         <Icon name="account-circle-outline" size={24} color="#808080" />
         <Text style={styles.navText}>Profile</Text>
       </TouchableOpacity>

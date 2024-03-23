@@ -9,7 +9,7 @@ const SearchBar = () => {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "black",
+        backgroundColor: "#007F73",
         padding: 5,
         borderRadius: 20,
         marginTop: 10,
@@ -23,7 +23,7 @@ const SearchBar = () => {
           marginRight: 5,
         }}
         placeholder="Search"
-        placeholderTextColor="gray"
+        placeholderTextColor="#9ca3af"
       />
       <Icon
         style={{
@@ -31,7 +31,7 @@ const SearchBar = () => {
         }}
         name="search"
         type="font-awesome"
-        color="gray"
+        color="#9ca3af"
         size={20}
       />
     </View>

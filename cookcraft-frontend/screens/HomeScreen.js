@@ -16,6 +16,8 @@ import FooterNavigation from "../components/FooterNavigation";
 import { useNavigation } from "@react-navigation/core";
 
 const HomeScreen = () => {
+  const logo = require("../assets/logo.jpg"); // Ensure correct path
+  const spicy_chicken = require("../assets/spicy_chicken.jpg");
   const cardData = [
     {
       image: spicy_chicken,
@@ -38,7 +40,10 @@ const HomeScreen = () => {
     <ScrollView style={styles.container}>
       <View style={{ padding: 16 }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image source={logo} style={{ width: 48, height: 48 }} />
+          <Image
+            source={logo}
+            style={{ width: 48, height: 48, borderRadius: 30 }}
+          />
           <View style={{ marginLeft: 10 }}>
             <Text>Welcome👋</Text>
             <Text>Name</Text>
@@ -46,7 +51,6 @@ const HomeScreen = () => {
         </View>
         <SearchBar />
         <IngredientsSection />
-
         {cardData.map((item, index) => (
           <TouchableOpacity
             key={index}
