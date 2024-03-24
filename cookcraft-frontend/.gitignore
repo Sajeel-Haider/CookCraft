@@ -33,3 +33,10 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+config.development.js
+config.production.js
