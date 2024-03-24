@@ -10,6 +10,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import api from "../config/axiosConfig";
+import Config from "react-native-config";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -34,7 +35,7 @@ const SignUpPage = () => {
       return;
     }
     axios
-      .post("http://192.168.10.3:8080/signup", {
+      .post(`${Config.API_URL}/signup`, {
         name: name,
         email: email,
         password: password,
