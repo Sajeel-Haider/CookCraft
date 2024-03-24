@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const uri =
-  "mongodb+srv://ahmed40152:ahmedabdulla@cluster0.k7swoq1.mongodb.net/";
+  "mongodb+srv://ahmed40152:ahmedabdulla@cluster0.k7swoq1.mongodb.net/CookCraftDB";
 
 const connectDB = async () => {
   try {

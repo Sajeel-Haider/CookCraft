@@ -1,18 +1,19 @@
-
-const express = require('express');
-
+const express = require("express");
+const cors = require("cors");
 const connectDB = require("./database/db");
-const bodyParser =require('body-parser')
-const app = express();
+const bodyParser = require("body-parser");
+
+require("./models/User");
+
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 const PORT = process.env.PORT || 8080;
-require('./models/User');
 
-const userRoutes = require('./routes/userRoutes');
-const authRoutes=require("./routes/authRoutes")
-
-app.use(bodyParser.json())
-app.use(authRoutes)
-app.use(userRoutes)
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
+app.use(authRoutes);
+app.use(userRoutes);
 
 const startApp = async () => {
   try {

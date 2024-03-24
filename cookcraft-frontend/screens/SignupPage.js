@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import api from "../config/axiosConfig";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -27,19 +29,32 @@ const SignUpPage = () => {
   };
 
   const handleSignUp = () => {
-    console.log(
-      "Name:",
-      name,
-      "Email:",
-      email,
-      "Password:",
-      password,
-      "Confirm Password:",
-      confirmPassword,
-      "Terms Accepted:",
-      termsAccepted
-    );
-    renderHomePage();
+    if (!name || !email || !password || !confirmPassword || !termsAccepted) {
+      console.error("All fields are required");
+      return;
+    }
+    axios
+      .post("http://192.168.10.3:8080/signup", {
+        name: name,
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log("Signup successful:", response.data);
+        renderHomePage();
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error status", error.response.status);
+          console.error("Error data", error.response.data);
+          console.error("Error headers", error.response.headers);
+        } else if (error.request) {
+          console.error("Error request", error.request);
+        } else {
+          console.error("Error", error.message);
+        }
+        console.error("Error config", error.config);
+      });
   };
 
   const toggleTermsAcceptance = () => {
@@ -110,8 +125,11 @@ const SignUpPage = () => {
         onPress={() => console.log("Already a member? Sign In")}
       >
         <Text style={styles.signInText}>
-          Already a member ? 
-          <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}> Sign In</Text>
+          Already a member ?
+          <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}>
+            {" "}
+            Sign In
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>

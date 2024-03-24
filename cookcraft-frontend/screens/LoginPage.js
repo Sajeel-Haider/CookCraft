@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import axios from "axios";
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,25 @@ const LoginPage = () => {
 
   const handleSignIn = () => {
     console.log("Email:", email, "Password:", password);
-    renderHomeScreen();
+
+    if (!email || !password) {
+      console.error("Email and password are required");
+      return;
+    }
+
+    const userData = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post("http://192.168.10.3:8080/login", userData)
+      .then((response) => {
+        console.log("Login successful:", response.data);
+        renderHomeScreen();
+      })
+      .catch((error) => {
+        console.error("Error signing in:", error.message);
+      });
   };
 
   const handleSocialSignIn = (service) => {
@@ -97,7 +117,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     textAlign: "left",
-    paddingLeft:5,
+    paddingLeft: 5,
     color: "#fbbd5c",
   },
   signInButton: {
@@ -132,7 +152,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   signUpTextorange: {
-    fontWeight:"bold",
+    fontWeight: "bold",
     color: "#fbbd5c",
   },
 });
