@@ -14,8 +14,10 @@ import IngredientsSection from "../components/HomeScreen/IngredientsSection";
 import RecipeCard from "../utils/HomePage/RecipeCard";
 import FooterNavigation from "../components/FooterNavigation";
 import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
+  const user = useSelector((state) => state.user);
   const logo = require("../assets/logo.jpg"); // Ensure correct path
   const spicy_chicken = require("../assets/spicy_chicken.jpg");
   const cardData = [
@@ -46,7 +48,7 @@ const HomeScreen = () => {
           />
           <View style={{ marginLeft: 10 }}>
             <Text>Welcome👋</Text>
-            <Text>Name</Text>
+            <Text>{user.name}</Text>
           </View>
         </View>
         <SearchBar />

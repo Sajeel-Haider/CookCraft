@@ -11,11 +11,14 @@ import { useNavigation } from "@react-navigation/native";
 import Config from "react-native-config";
 import axios from "axios";
 import config from "../config/envConfig";
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "../store/slices/authUser-slice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
   const navigate = useNavigation();
 
   const handleSignIn = () => {
@@ -34,6 +37,7 @@ const LoginPage = () => {
       .post(`${config.API_URL}/login`, userData)
       .then((response) => {
         console.log("Login successful:", response.data);
+        dispatch(setAuthUser(response.data.user));
         renderHomeScreen();
       })
       .catch((error) => {
