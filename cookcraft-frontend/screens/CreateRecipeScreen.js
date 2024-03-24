@@ -7,8 +7,10 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import * as ImagePicker from "react-native-image-picker";
 
 const CreateRecipeScreen = () => {
   const [recipeTitle, setRecipeTitle] = useState("");
@@ -16,14 +18,104 @@ const CreateRecipeScreen = () => {
   const [recipeImage, setRecipeImage] = useState(null);
   const [portion, setPortion] = useState("");
   const [cookingTime, setCookingTime] = useState("");
-  // New state for ingredients
+  const [youtubeLink, setYoutubeLink] = useState("");
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
 
-  // Placeholder functions
-  const pickImage = () => {};
-  const submitRecipe = () => {};
+  const pickImage = async () => {
+    try {
+      await ImagePicker.requestCameraPermissionAsync();
+      console.log("gekko");
+      let result = await ImagePicker.launchCamera({
+        cameraType: ImagePicker.CameraType.front,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+      }
+    } catch (error) {}
+    // ImagePicker.launchImageLibrary({}, (response) => {
+    //   // Check if image selection is successful
+    //   if (response.didCancel) {
+    //     console.log("User cancelled image picker");
+    //   } else if (response.error) {
+    //     console.log("ImagePicker Error: ", response.error);
+    //   } else {
+    //     // Set selected image
+    //     setRecipeImage(response.uri);
+    //   }
+    // });
+  };
 
-  // Function to handle ingredient name and quantity changes
+  const submitRecipe = () => {
+    console.log(recipeTitle);
+    // Perform validation checks here if needed
+    if (
+      !recipeTitle ||
+      !description ||
+      !recipeImage ||
+      !portion ||
+      !cookingTime ||
+      !youtubeLink ||
+      ingredients.some((ingredient) => !ingredient.name || !ingredient.quantity)
+    ) {
+      // Display an alert or handle validation error appropriately
+      Alert.alert(
+        "Error",
+        "Please fill in all fields before submitting the recipe."
+      );
+      return;
+    }
+
+    // Prepare the recipe data to be submitted
+    const recipeData = {
+      title: recipeTitle,
+      description: description,
+      image: recipeImage,
+      portion: portion,
+      cookingTime: cookingTime,
+      youtubeLink: youtubeLink,
+      ingredients: ingredients,
+      // Add any additional data fields as needed
+    };
+    console.log(recipeData);
+    // Send the recipe data to your backend server or storage system
+    // Example fetch request to submit the recipe data
+    fetch("https://localhost:8080/submitRecipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(recipeData),
+    })
+      .then((response) => {
+        // Handle the response from the server
+        if (response.ok) {
+          // Recipe submitted successfully, perform any necessary actions (e.g., navigation)
+          console.log("Recipe submitted successfully!");
+          // Example: Navigate to a different screen after successful submission
+          // navigation.navigate('RecipeSubmittedScreen');
+        } else {
+          // Recipe submission failed, handle the error response
+          console.error("Failed to submit recipe:", response.status);
+          // Display an alert or handle the error appropriately
+          Alert.alert(
+            "Error",
+            "Failed to submit recipe. Please try again later."
+          );
+        }
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the fetch request
+        console.error("Error submitting recipe:", error);
+        // Display an alert or handle the error appropriately
+        Alert.alert(
+          "Error",
+          "An unexpected error occurred. Please try again later."
+        );
+      });
+  };
+
   const handleIngredientChange = (text, index, type) => {
     const newIngredients = [...ingredients];
     if (type === "name") {
@@ -34,7 +126,6 @@ const CreateRecipeScreen = () => {
     setIngredients(newIngredients);
   };
 
-  // Function to add a new ingredient field
   const addIngredient = () => {
     setIngredients([...ingredients, { name: "", quantity: "" }]);
   };
@@ -71,6 +162,12 @@ const CreateRecipeScreen = () => {
         onChangeText={setPortion}
         value={portion}
         placeholder="Portion"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setYoutubeLink}
+        value={youtubeLink}
+        placeholder="Youtube"
       />
       <TextInput
         style={styles.input}
@@ -111,18 +208,13 @@ const CreateRecipeScreen = () => {
       >
         <Icon name="plus" size={24} color="#007F73" />
       </TouchableOpacity>
-      <Icon name="plus" size={24} color="#007F73" />
-      <TouchableOpacity onPress={addIngredient} style={styles.addButton}>
-        <Text style={styles.addButtonText}>+ Add Ingredient</Text>
-      </TouchableOpacity>
+
       <Button title="Submit Recipe" onPress={submitRecipe} />
-      {/* Ingredients input */}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  // Existing styles...
   container: {
     flex: 1,
     padding: 16,

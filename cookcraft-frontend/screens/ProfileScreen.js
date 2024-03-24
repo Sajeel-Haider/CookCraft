@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,13 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const ProfileScreen = () => {
+  const [activeTab, setActiveTab] = useState("My recipe");
+
+  const tabItems = ["My recipe", "Tested recipe", "Cookbook"];
+
+  const handleTabPress = (tab) => {
+    setActiveTab(tab);
+  };
   // Placeholder for profile data and recipe images
   const profileData = {
     name: "Tasya Aulianza",
@@ -68,6 +75,25 @@ const ProfileScreen = () => {
         <TouchableOpacity style={styles.manageProfileButton}>
           <Text style={styles.manageProfileButtonText}>Manage profile</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.tabsContainer}>
+        {tabItems.map((tab, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.tab, activeTab === tab ? styles.activeTab : null]}
+            onPress={() => handleTabPress(tab)}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === tab ? styles.activeTabText : null,
+              ]}
+            >
+              {tab}
+            </Text>
+            {activeTab === tab && <View style={styles.activeTabIndicator} />}
+          </TouchableOpacity>
+        ))}
       </View>
       <FlatList
         data={profileData.recipes}
@@ -145,6 +171,27 @@ const styles = StyleSheet.create({
   },
   likesCount: {
     marginLeft: 5,
+  },
+  tabsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+    backgroundColor: "#fff",
+  },
+  tab: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: "red", // Use your app's active color here
+  },
+  activeTabText: {
+    fontWeight: "bold",
+  },
+  tabText: {
+    color: "#000",
   },
 });
 
