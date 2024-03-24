@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import api from "../config/axiosConfig";
 import Config from "react-native-config";
+import config from "../config/envConfig";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -35,7 +36,7 @@ const SignUpPage = () => {
       return;
     }
     axios
-      .post(`${Config.API_URL}/signup`, {
+      .post(`${config.API_URL}/signup`, {
         name: name,
         email: email,
         password: password,

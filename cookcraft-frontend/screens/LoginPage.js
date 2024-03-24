@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Config from "react-native-config";
-
 import axios from "axios";
+import config from "../config/envConfig";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -25,13 +25,13 @@ const LoginPage = () => {
       console.error("Email and password are required");
       return;
     }
-    console.log(Config.API_URL);
+
     const userData = {
       email: email,
       password: password,
     };
     axios
-      .post(`${Config.API_URL}/login`, userData)
+      .post(`${config.API_URL}/login`, userData)
       .then((response) => {
         console.log("Login successful:", response.data);
         renderHomeScreen();
