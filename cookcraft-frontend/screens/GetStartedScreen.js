@@ -20,11 +20,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.skipContainer}>
-        <TouchableOpacity>
-          <Text style={styles.skipText}>Skip</Text>
-        </TouchableOpacity>
-      </View>
+      <View style={styles.skipContainer}></View>
       <Image source={cooking} style={styles.image} resizeMode="contain" />
       <Text style={styles.heading}>Thousands of tested recipes</Text>
       <Text style={styles.subHeading}>

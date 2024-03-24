@@ -84,10 +84,15 @@ const LoginPage = () => {
         <Text style={styles.signInButtonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => renderSignupScreen()}>
+      <TouchableOpacity>
         <Text style={styles.signUpText}>
           Don't have an account ?
-          <Text style={styles.signUpTextorange}> Sign up</Text>
+          <Text
+            style={styles.signUpTextorange}
+            onPress={() => renderSignupScreen()}
+          >
+            Sign up
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>

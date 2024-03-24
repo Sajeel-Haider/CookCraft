@@ -22,6 +22,14 @@ const RecipeDetails = ({ route }) => {
         </TouchableOpacity>
       </View>
       {/* Add other details like description, ingredients, etc. */}
+      <View>
+        <Text>Description</Text>
+        <Text>{recipe.description}</Text>
+      </View>
+      <View>
+        <Text>Ingrdients</Text>
+        <Text>{recipe.description}</Text>
+      </View>
     </ScrollView>
   );
 };

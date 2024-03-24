@@ -9,35 +9,35 @@ import {
   FlatList,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { useSelector } from "react-redux";
 const ProfileScreen = () => {
   const [activeTab, setActiveTab] = useState("My recipe");
 
-  const tabItems = ["My recipe", "Tested recipe", "Cookbook"];
-
+  const tabItems = ["My recipe"]; //, "Tested recipe", "Cookbook"];
+  const authUser = useSelector((state) => state.user);
   const handleTabPress = (tab) => {
     setActiveTab(tab);
   };
   // Placeholder for profile data and recipe images
   const profileData = {
-    name: "Tasya Aulianza",
-    username: "@tasyaaauz",
+    name: authUser.name,
+    username: "@" + authUser.name,
     recipesCount: 29,
     followersCount: 144,
     followingCount: 306,
-    profileImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    profileImage: require("../assets/user.png"), // Replace with actual image URL
     recipes: [
       {
         id: "1",
         name: "Shrimp with Garlic",
         likes: 186,
-        image: "https://via.placeholder.com/150",
+        image: require("../assets/spicy_chicken.jpg"),
       },
       {
         id: "2",
         name: "Spicy Sausage",
         likes: 503,
-        image: "https://via.placeholder.com/150",
+        image: require("../assets/spicy_chicken.jpg"),
       },
       // ...more recipes
     ],
@@ -45,7 +45,7 @@ const ProfileScreen = () => {
 
   const renderRecipe = ({ item }) => (
     <View style={styles.recipeCard}>
-      <Image source={{ uri: item.image }} style={styles.recipeImage} />
+      <Image source={item.image} style={styles.recipeImage} />
       <Text style={styles.recipeName}>{item.name}</Text>
       <View style={styles.likesContainer}>
         <Icon name="heart" size={16} color="#888" />
@@ -57,10 +57,7 @@ const ProfileScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={{ uri: profileData.profileImage }}
-          style={styles.profileImage}
-        />
+        <Image source={profileData.profileImage} style={styles.profileImage} />
         <Text style={styles.profileName}>{profileData.name}</Text>
         <Text style={styles.profileUsername}>{profileData.username}</Text>
         <View style={styles.statsContainer}>
@@ -72,9 +69,9 @@ const ProfileScreen = () => {
             {profileData.followingCount} Following
           </Text>
         </View>
-        <TouchableOpacity style={styles.manageProfileButton}>
+        {/* <TouchableOpacity style={styles.manageProfileButton}>
           <Text style={styles.manageProfileButtonText}>Manage profile</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View style={styles.tabsContainer}>
         {tabItems.map((tab, index) => (
@@ -185,7 +182,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "red", // Use your app's active color here
+    borderBottomColor: "#007F73", // Use your app's active color here
   },
   activeTabText: {
     fontWeight: "bold",

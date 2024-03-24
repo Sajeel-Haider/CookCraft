@@ -8,6 +8,7 @@ import GetStartedScreen from "../screens/GetStartedScreen";
 import RecipeDetails from "../screens/RecipeDetails";
 import CreateRecipeScreen from "../screens/CreateRecipeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import Layout from "../components/Layout";
 
 const Stack = createNativeStackNavigator();
 

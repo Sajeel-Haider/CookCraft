@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { logo } from "../assets/logo.jpg";
+import { user } from "../assets/user.png";
 import { spicy_chicken } from "../assets/spicy_chicken.jpg";
 import SearchBar from "../utils/HomePage/SearchBar";
 import IngredientsSection from "../components/HomeScreen/IngredientsSection";
@@ -15,10 +15,11 @@ import RecipeCard from "../utils/HomePage/RecipeCard";
 import FooterNavigation from "../components/FooterNavigation";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const HomeScreen = () => {
   const user = useSelector((state) => state.user);
-  const logo = require("../assets/logo.jpg"); // Ensure correct path
+  const userProfileImage = require("../assets/user.png"); // Ensure correct path
   const spicy_chicken = require("../assets/spicy_chicken.jpg");
   const cardData = [
     {
@@ -27,6 +28,8 @@ const HomeScreen = () => {
       rating: "4.5",
       time: "30 min",
       authorName: "Yumna Azzahra",
+      description:
+        "Indonesian Fried Chicken or Ayam Goreng, is a delicious and popular dish that showcases the vibrant flavors of Indonesian cuisine.",
     },
     {
       image: spicy_chicken,
@@ -41,15 +44,36 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={{ padding: 16 }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={logo}
-            style={{ width: 48, height: 48, borderRadius: 30 }}
-          />
-          <View style={{ marginLeft: 10 }}>
-            <Text>Welcome👋</Text>
-            <Text>{user.name}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View
+            style={{
+              marginLeft: 10,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={userProfileImage}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 30,
+                marginRight: 10,
+              }}
+            />
+            <View>
+              <Text>Welcome👋</Text>
+              <Text>{user.name}</Text>
+            </View>
           </View>
+          {/* Notification Icon */}
+          <Icon name="bell-outline" size={30} color="rgb(143, 143, 143)" />
         </View>
         <SearchBar />
         <IngredientsSection />
