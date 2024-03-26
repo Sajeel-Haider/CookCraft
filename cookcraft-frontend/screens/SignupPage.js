@@ -43,6 +43,7 @@ const SignUpPage = () => {
       })
       .then((response) => {
         console.log("Signup successful:", response.data);
+        AsyncStorage.setItem('userToken', response.data.token);
         renderHomePage();
       })
       .catch((error) => {
@@ -127,9 +128,9 @@ const SignUpPage = () => {
         onPress={() => console.log("Already a member? Sign In")}
       >
         <Text style={styles.signInText}>
-          Already a member ?
+          Already a member?
           <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}>
-            {" "}
+            {' '}
             Sign In
           </Text>
         </Text>
@@ -178,6 +179,7 @@ const styles = StyleSheet.create({
   termsText: {
     fontSize: 13,
     color: "#fbbd5c",
+    fontWeight:"bold",
   },
   signUpButton: {
     backgroundColor: "#129575",

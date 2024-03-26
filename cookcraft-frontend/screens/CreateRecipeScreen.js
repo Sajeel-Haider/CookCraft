@@ -85,6 +85,7 @@ const CreateRecipeScreen = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ${userToken}'
       },
       body: JSON.stringify(recipeData),
     })
