@@ -21,6 +21,7 @@ const HomeScreen = () => {
   const user = useSelector((state) => state.user);
   const userProfileImage = require("../assets/user.png"); // Ensure correct path
   const spicy_chicken = require("../assets/spicy_chicken.jpg");
+  const cookies = require("../assets/cookies.jpg");
   const cardData = [
     {
       image: spicy_chicken,
@@ -30,11 +31,13 @@ const HomeScreen = () => {
       authorName: "Yumna Azzahra",
       description:
         "Indonesian Fried Chicken or Ayam Goreng, is a delicious and popular dish that showcases the vibrant flavors of Indonesian cuisine.",
+      ingredients:
+        "300 grams of egg noodles, boiled until tender 6 tbsp onion chicken oil tsp soy sauce",
     },
     {
-      image: spicy_chicken,
-      title: "Spiced Fried Chicken",
-      rating: "4.5",
+      image: cookies,
+      title: "Cookies",
+      rating: "4",
       time: "30 min",
       authorName: "Yumna Azzahra",
     },

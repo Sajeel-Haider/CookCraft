@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Text } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
@@ -27,7 +27,7 @@ const FirstScreen = () => {
   }, []);
 
   return (
-    <View className="flex-1 items-center justify-center space-y-10 bg-black">
+    <View className="flex-1 items-center justify-center space-y-10 bg-primarycolordark">
       <Animated.View
         className=" bg-white/20 rounded-full"
         style={{ padding: ring_2_padding.value }}
@@ -36,9 +36,23 @@ const FirstScreen = () => {
           className=" bg-white/20 rounded-full"
           style={{ padding: ring_1_padding.value }}
         >
-          <Image source={logo} className="w-12 h-12" />
+          <Image
+            source={logo}
+            className="w-12 h-12"
+            style={{ borderRadius: 20 }}
+          />
         </Animated.View>
       </Animated.View>
+      <Text style={{ color: "white", fontSize: 20 }}>CookCraft</Text>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 10,
+          alignItems: "center",
+        }}
+      >
+        Your Culinary Adventure Starts Here
+      </Text>
     </View>
   );
 };

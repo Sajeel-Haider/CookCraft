@@ -22,13 +22,16 @@ const RecipeDetails = ({ route }) => {
         </TouchableOpacity>
       </View>
       {/* Add other details like description, ingredients, etc. */}
-      <View>
-        <Text>Description</Text>
+      <View style={{ padding: 20 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Description</Text>
         <Text>{recipe.description}</Text>
       </View>
-      <View>
-        <Text>Ingrdients</Text>
-        <Text>{recipe.description}</Text>
+      <View style={{ padding: 20 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Ingredients</Text>
+        <Text>
+          300 grams of egg noodles, boiled until tender • 6 tbsp onion chicken
+          oil • 3 tsp soy sauce
+        </Text>
       </View>
     </ScrollView>
   );

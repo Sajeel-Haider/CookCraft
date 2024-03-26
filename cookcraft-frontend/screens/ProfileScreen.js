@@ -22,23 +22,18 @@ const ProfileScreen = () => {
   const profileData = {
     name: authUser.name,
     username: "@" + authUser.name,
-    recipesCount: 29,
+    recipesCount: 1,
     followersCount: 144,
     followingCount: 306,
     profileImage: require("../assets/user.png"), // Replace with actual image URL
     recipes: [
       {
         id: "1",
-        name: "Shrimp with Garlic",
+        name: "Spicy Chicekn",
         likes: 186,
         image: require("../assets/spicy_chicken.jpg"),
       },
-      {
-        id: "2",
-        name: "Spicy Sausage",
-        likes: 503,
-        image: require("../assets/spicy_chicken.jpg"),
-      },
+
       // ...more recipes
     ],
   };
