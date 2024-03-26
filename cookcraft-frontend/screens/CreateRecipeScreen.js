@@ -24,7 +24,7 @@ const CreateRecipeScreen = () => {
   const pickImage = async () => {
     try {
       await ImagePicker.requestCameraPermissionAsync();
-      console.log("gekko");
+
       let result = await ImagePicker.launchCamera({
         cameraType: ImagePicker.CameraType.front,
         allowsEditing: true,
@@ -81,11 +81,11 @@ const CreateRecipeScreen = () => {
     console.log(recipeData);
     // Send the recipe data to your backend server or storage system
     // Example fetch request to submit the recipe data
-    fetch("https://localhost:8080/submitRecipe", {
+    fetch(`${config.API_URL}:8080/submitRecipe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ${userToken}'
+        //   "Authorization": 'Bearer ${userToken}'
       },
       body: JSON.stringify(recipeData),
     })
