@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -7,43 +7,40 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { user } from "../assets/user.png";
-import { spicy_chicken } from "../assets/spicy_chicken.jpg";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
+
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import axios from "axios";
+
 import SearchBar from "../utils/HomePage/SearchBar";
 import IngredientsSection from "../components/HomeScreen/IngredientsSection";
 import RecipeCard from "../utils/HomePage/RecipeCard";
 import FooterNavigation from "../components/FooterNavigation";
-import { useNavigation } from "@react-navigation/core";
-import { useSelector } from "react-redux";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import config from "../config.development";
 
 const HomeScreen = () => {
+  const [cardData, setCardData] = useState([]);
+
+  const userProfileImage = require("../assets/user.png");
+
   const user = useSelector((state) => state.user);
-  const userProfileImage = require("../assets/user.png"); // Ensure correct path
-  const spicy_chicken = require("../assets/spicy_chicken.jpg");
-  const cookies = require("../assets/cookies.jpg");
-  const cardData = [
-    {
-      image: spicy_chicken,
-      title: "Spiced Fried Chicken",
-      rating: "4.5",
-      time: "30 min",
-      authorName: "Yumna Azzahra",
-      description:
-        "Indonesian Fried Chicken or Ayam Goreng, is a delicious and popular dish that showcases the vibrant flavors of Indonesian cuisine.",
-      ingredients:
-        "300 grams of egg noodles, boiled until tender 6 tbsp onion chicken oil tsp soy sauce",
-    },
-    {
-      image: cookies,
-      title: "Cookies",
-      rating: "4",
-      time: "30 min",
-      authorName: "Yumna Azzahra",
-    },
-    // Add more card data as needed
-  ];
+
   const navigate = useNavigation();
+
+  useEffect(() => {
+    console.log(cardData);
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/recipes`);
+        setCardData(response.data);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={{ padding: 16 }}>
@@ -75,7 +72,6 @@ const HomeScreen = () => {
               <Text>{user.name}</Text>
             </View>
           </View>
-          {/* Notification Icon */}
           <Icon name="bell-outline" size={30} color="rgb(143, 143, 143)" />
         </View>
         <SearchBar />

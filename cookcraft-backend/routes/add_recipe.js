@@ -3,10 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Recipe = mongoose.model("Recipe");
 
-// const jwt = require('jsonwebtoken');
-// const secretKey = 'YOUR_SECRET_KEY'; // Replace with the secret key used to sign the JWT
-
-router.post("/add-recipe", async (req, res) => {
+router.post("/addRecipe", async (req, res) => {
   const {
     Recipe_Title,
     Description,
@@ -14,22 +11,11 @@ router.post("/add-recipe", async (req, res) => {
     portion,
     youtube_link,
     ingredients,
+    cooking_time,
     user,
   } = req.body;
-  console.log(req.body);
-  // Token is usually sent in the Authorization header
-  //const token = req.headers.authorization?.split(' ')[1];
-
-  // if (!token) {
-  //   return res.status(403).send({ error: "A token is required for authentication" });
-  // }
 
   try {
-    // Verify the token
-    // const decoded = jwt.verify(token, secretKey);
-    // const userId = decoded.userId; // Your payload should include the userId when you sign the token
-
-    // Create a new recipe with the user's ObjectId
     const newRecipe = new Recipe({
       Recipe_Title,
       Description,
@@ -37,16 +23,38 @@ router.post("/add-recipe", async (req, res) => {
       portion,
       youtube_link,
       ingredients,
-      //user: userId
+      cooking_time,
       user,
     });
-
-    // Save the new recipe
-    const savedRecipe = await newRecipe.save();
-    res.status(201).send(savedRecipe);
+    try {
+      const savedRecipe = await newRecipe.save();
+      console.log("Recipe saved successfully:", savedRecipe);
+    } catch (error) {
+      console.error("Error saving recipe:", error.message);
+      throw error;
+    }
+    res.status(200).send();
   } catch (error) {
     res.status(500).send({ error: "Failed to add recipe" });
   }
 });
 
+router.delete("/recipes/:recipeId", async (req, res) => {
+  const { recipeId } = req.params;
+
+  try {
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    await Recipe.findByIdAndDelete(recipeId);
+    res.json({ message: "Recipe deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting recipe:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to delete recipe", error: error.message });
+  }
+});
 module.exports = router;

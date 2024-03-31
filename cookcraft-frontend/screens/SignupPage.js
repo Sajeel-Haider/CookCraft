@@ -6,11 +6,11 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import api from "../config/axiosConfig";
-import Config from "react-native-config";
+
 import config from "../config/envConfig";
 
 const SignUpPage = () => {
@@ -25,9 +25,11 @@ const SignUpPage = () => {
   const renderLoginPage = () => {
     navigate.navigate("Login");
   };
-
   const renderHomePage = () => {
     navigate.navigate("Home");
+  };
+  const toggleTermsAcceptance = () => {
+    setTermsAccepted(!termsAccepted);
   };
 
   const handleSignUp = () => {
@@ -43,7 +45,7 @@ const SignUpPage = () => {
       })
       .then((response) => {
         console.log("Signup successful:", response.data);
-        AsyncStorage.setItem('userToken', response.data.token);
+        AsyncStorage.setItem("userToken", response.data.token);
         renderHomePage();
       })
       .catch((error) => {
@@ -58,10 +60,6 @@ const SignUpPage = () => {
         }
         console.error("Error config", error.config);
       });
-  };
-
-  const toggleTermsAcceptance = () => {
-    setTermsAccepted(!termsAccepted);
   };
 
   return (
@@ -130,7 +128,7 @@ const SignUpPage = () => {
         <Text style={styles.signInText}>
           Already a member?
           <Text style={styles.signInTextBold} onPress={() => renderLoginPage()}>
-            {' '}
+            {" "}
             Sign In
           </Text>
         </Text>
@@ -179,7 +177,7 @@ const styles = StyleSheet.create({
   termsText: {
     fontSize: 13,
     color: "#fbbd5c",
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   signUpButton: {
     backgroundColor: "#129575",

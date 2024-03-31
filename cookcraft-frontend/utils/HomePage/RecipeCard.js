@@ -1,15 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const RecipeCard = ({ image, title, rating, time, authorName }) => {
+const RecipeCard = ({ image_link, Recipe_Title, cooking_time, user }) => {
   return (
     <View style={styles.cardContainer}>
-      <Image source={image} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
+      <Image source={{ uri: image_link }} style={styles.image} />
+      <Text style={styles.title}>{Recipe_Title}</Text>
       <View style={styles.infoContainer}>
-        <Text style={styles.rating}>{rating} ⭐</Text>
-        <Text style={styles.time}>{time}</Text>
-        <Text style={styles.author}>{authorName}</Text>
+        <Text style={styles.rating}> ⭐</Text>
+        <Text style={styles.time}>{cooking_time}</Text>
+        {/* <Text style={styles.author}>{authorName}</Text> */}
       </View>
     </View>
   );
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   rating: {
     fontSize: 16,
-    color: "#FFA000", // Change color according to your theme
+    color: "#FFA000",
   },
   time: {
     fontSize: 16,

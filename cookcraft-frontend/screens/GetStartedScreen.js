@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
+
 import cooking from "../assets/Cooking.png";
 
 const App = () => {

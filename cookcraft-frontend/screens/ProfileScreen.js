@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,45 +7,124 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
-const ProfileScreen = () => {
-  const [activeTab, setActiveTab] = useState("My recipe");
+import { Menu, IconButton } from "react-native-paper";
 
-  const tabItems = ["My recipe"]; //, "Tested recipe", "Cookbook"];
-  const authUser = useSelector((state) => state.user);
-  const handleTabPress = (tab) => {
-    setActiveTab(tab);
-  };
-  // Placeholder for profile data and recipe images
+import Icon from "react-native-vector-icons/FontAwesome";
+import axios from "axios";
+
+import config from "../config/envConfig";
+
+const ProfileScreen = () => {
   const profileData = {
     name: authUser.name,
     username: "@" + authUser.name,
-    recipesCount: 1,
-    followersCount: 144,
-    followingCount: 306,
-    profileImage: require("../assets/user.png"), // Replace with actual image URL
-    recipes: [
-      {
-        id: "1",
-        name: "Spicy Chicekn",
-        likes: 186,
-        image: require("../assets/spicy_chicken.jpg"),
-      },
+    recipesCount: recipesCount,
+    followersCount: 0,
+    followingCount: 0,
+    profileImage: require("../assets/user.png"),
+  };
+  const tabItems = ["My recipe"]; //, "Tested recipe", "Cookbook"];
 
-      // ...more recipes
-    ],
+  const [recipes, setRecipes] = useState([]);
+  const [activeTab, setActiveTab] = useState("My recipe");
+  const [menuVisibilities, setMenuVisibilities] = useState([]);
+  const [recipesCount, setRecipesCount] = useState(0);
+  const [visible, setVisible] = useState(false);
+
+  const authUser = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const initialMenuVisibilities = recipes.map(() => false);
+    setMenuVisibilities(initialMenuVisibilities);
+  }, [recipes]);
+  useEffect(() => {
+    console.log(authUser);
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios
+          .get(`${config.API_URL}/recipes/${authUser._id}`)
+          .then((response) => {
+            if (response === 401) {
+              console.log(response);
+            }
+            console.log("ELbtnt", response.data.length);
+            setRecipesCount(response.data.length);
+            setRecipes(response.data);
+          });
+      } catch (error) {
+        console.error("Error fetching recipes", error);
+      }
+    };
+
+    fetchRecipes();
+  }, [authUser._id]);
+
+  const handleTabPress = (tab) => {
+    setActiveTab(tab);
+  };
+  const toggleMenuVisibility = (index) => {
+    setMenuVisibilities((prevVisibilities) => {
+      const newVisibilities = [...prevVisibilities];
+      newVisibilities[index] = !newVisibilities[index];
+      return newVisibilities;
+    });
+  };
+  const deleteRecipe = async (recipeId) => {
+    try {
+      Alert.alert(
+        "Confirm Deletion",
+        "Are you sure you want to delete this recipe?",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "Delete",
+            onPress: async () => {
+              const response = await axios.delete(
+                `${config.API_URL}/recipes/${recipeId}`
+              );
+              if (response.status === 200) {
+                console.log("Recipe deleted successfully");
+                fetchRecipes();
+              } else {
+                console.log("Failed to delete recipe");
+              }
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.log("Error deleting recipe: ", error);
+    }
   };
 
-  const renderRecipe = ({ item }) => (
+  const renderRecipe = ({ item, index }) => (
     <View style={styles.recipeCard}>
-      <Image source={item.image} style={styles.recipeImage} />
-      <Text style={styles.recipeName}>{item.name}</Text>
+      <Image source={{ uri: item.image_link }} style={styles.recipeImage} />
+      <Text style={styles.recipeName}>{item.Recipe_Title}</Text>
+      <Text style={styles.recipeDescription}>{item.Description}</Text>
       <View style={styles.likesContainer}>
         <Icon name="heart" size={16} color="#888" />
-        <Text style={styles.likesCount}>{item.likes}</Text>
       </View>
+      <Menu
+        visible={menuVisibilities[index]}
+        onDismiss={() => toggleMenuVisibility(index)}
+        anchor={
+          <IconButton
+            icon="dots-vertical"
+            onPress={() => toggleMenuVisibility(index)}
+          />
+        }
+      >
+        {/* <Menu.Item onPress={() => console.log("Edit pressed")} title="Edit" /> */}
+        <Menu.Item onPress={() => deleteRecipe(item._id)} title="Delete" />
+      </Menu>
     </View>
   );
 
@@ -88,7 +167,7 @@ const ProfileScreen = () => {
         ))}
       </View>
       <FlatList
-        data={profileData.recipes}
+        data={recipes}
         renderItem={renderRecipe}
         keyExtractor={(item) => item.id}
         numColumns={2}
@@ -131,7 +210,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   manageProfileButton: {
-    backgroundColor: "#FFD700", // Your button color
+    backgroundColor: "#FFD700",
     padding: 10,
     borderRadius: 20,
     marginTop: 10,
@@ -150,7 +229,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: "100%",
-    height: 150, // Adjust as needed
+    height: 150,
   },
   recipeName: {
     fontWeight: "bold",
@@ -177,7 +256,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "#007F73", // Use your app's active color here
+    borderBottomColor: "#007F73",
   },
   activeTabText: {
     fontWeight: "bold",

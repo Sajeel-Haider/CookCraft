@@ -3,9 +3,7 @@ import productionConfig from "../config.production";
 
 let selectedConfig;
 
-// Here you can insert any logic to choose the config based on the environment
-// For manual switching, just change this variable
-const environment = "development"; // or 'production'
+const environment = "development";
 
 if (environment === "development") {
   selectedConfig = developmentConfig;

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { useNavigationState } from "@react-navigation/native";
+
 import FooterNavigation from "./FooterNavigation";
 
 const Layout = ({ children }) => {

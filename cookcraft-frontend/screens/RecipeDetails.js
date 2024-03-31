@@ -13,25 +13,25 @@ const RecipeDetails = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={recipe.image} style={styles.image} />
-      <Text style={styles.title}>{recipe.title}</Text>
+      <Image source={{ uri: recipe.image_link }} style={styles.image} />
+      <Text style={styles.title}>{recipe.Recipe_Title}</Text>
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>{recipe.authorName}</Text>
+        {/* <Text style={styles.userName}>{recipe.user}</Text> */}
         <TouchableOpacity style={styles.followButton}>
           <Text style={styles.followButtonText}>Follow</Text>
         </TouchableOpacity>
       </View>
-      {/* Add other details like description, ingredients, etc. */}
       <View style={{ padding: 20 }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Description</Text>
-        <Text>{recipe.description}</Text>
+        <Text>{recipe.Description}</Text>
       </View>
       <View style={{ padding: 20 }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Ingredients</Text>
-        <Text>
-          300 grams of egg noodles, boiled until tender • 6 tbsp onion chicken
-          oil • 3 tsp soy sauce
-        </Text>
+        {recipe.ingredients.map((ingredient, index) => (
+          <Text key={index} style={styles.ingredient}>
+            {ingredient.name}: {ingredient.quantity}
+          </Text>
+        ))}
       </View>
     </ScrollView>
   );
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 300, // Adjust as necessary
+    height: 300,
   },
   title: {
     fontSize: 24,
@@ -61,14 +61,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   followButton: {
-    backgroundColor: "#FFA500", // Use your theme color
+    backgroundColor: "#FFA500",
     padding: 8,
     borderRadius: 20,
   },
   followButtonText: {
     color: "#FFFFFF",
   },
-  // Add styles for other components like description, ingredients, etc.
 });
 
 export default RecipeDetails;

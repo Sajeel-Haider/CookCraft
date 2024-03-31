@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   },
   ingredientText: {
     fontSize: 14,
-    color: "black", // Default text color
+    color: "black",
   },
   selectedIngredient: {
-    backgroundColor: "#4CCD99", // Change to your desired selected color
+    backgroundColor: "#4CCD99",
   },
   selectedIngredientText: {
-    color: "black", // Change to your desired selected text color
+    color: "black",
   },
 });
 

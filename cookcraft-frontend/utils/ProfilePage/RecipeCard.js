@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const RecipeCard = ({ item, onDelete }) => {
@@ -55,10 +48,11 @@ const RecipeCard = ({ item, onDelete }) => {
     </View>
   );
 };
+
 export default RecipeCard;
+
 const styles = StyleSheet.create({
   recipeCard: {
-    // Add styles to match your design
     margin: 10,
     overflow: "hidden",
     borderRadius: 8,
@@ -67,7 +61,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: "100%",
-    height: 200, // set the height you want
+    height: 200,
   },
   recipeName: {
     fontWeight: "bold",
@@ -96,13 +90,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 5,
     padding: 10,
-    // Position the modal on the screen where you want
-    // e.g., align it to the right and top of the card
-  },
-  modalOption: {
-    // Styling for each option in the modal
-  },
-  modalText: {
-    // Text styling
   },
 });

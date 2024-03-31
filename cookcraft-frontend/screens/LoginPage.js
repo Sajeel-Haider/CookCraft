@@ -8,10 +8,11 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Config from "react-native-config";
-import axios from "axios";
-import config from "../config/envConfig";
 import { useDispatch } from "react-redux";
+
+import axios from "axios";
+
+import config from "../config/envConfig";
 import { setAuthUser } from "../store/slices/authUser-slice";
 
 const LoginPage = () => {
@@ -19,7 +20,15 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+
   const navigate = useNavigation();
+
+  const renderHomeScreen = () => {
+    navigate.navigate("Home");
+  };
+  const renderSignupScreen = () => {
+    navigate.navigate("Signup");
+  };
 
   const handleSignIn = () => {
     console.log("Email:", email, "Password:", password);
@@ -43,16 +52,6 @@ const LoginPage = () => {
       .catch((error) => {
         console.error("Error signing in:", error.message);
       });
-  };
-
-  const handleSocialSignIn = (service) => {
-    console.log("Sign in with:", service);
-  };
-  const renderHomeScreen = () => {
-    navigate.navigate("Home");
-  };
-  const renderSignupScreen = () => {
-    navigate.navigate("Signup");
   };
 
   return (
@@ -86,14 +85,13 @@ const LoginPage = () => {
 
       <TouchableOpacity>
         <Text style={styles.signUpText}>
-          Don't have an account? 
+          Don't have an account?
           <Text
             style={styles.signUpTextorange}
             onPress={() => renderSignupScreen()}
           >
-            {' '}
+            {" "}
             Sign up
-           
           </Text>
         </Text>
       </TouchableOpacity>
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     paddingLeft: 5,
     color: "#fbbd5c",
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   signInButton: {
     backgroundColor: "#129575",
@@ -163,14 +161,11 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
     marginTop: 25,
-   // 
-   // 
   },
   signUpTextorange: {
     fontWeight: "bold",
     color: "#fbbd5c",
-    padding:5,
-    
+    padding: 5,
   },
 });
 

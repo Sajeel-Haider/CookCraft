@@ -3,6 +3,7 @@ import { View, Image, Text } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
+
 import logo from "../assets/logo.jpg";
 
 const FirstScreen = () => {
@@ -22,8 +23,7 @@ const FirstScreen = () => {
       () => (ring_2_padding.value = withSpring(ring_2_padding.value + hp(5.5))),
       300
     );
-
-    setTimeout(() => navigate.navigate("GetStarted"), 2500);
+    setTimeout(() => navigate.navigate("GetStarted"), 3000);
   }, []);
 
   return (

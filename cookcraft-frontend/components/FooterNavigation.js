@@ -1,17 +1,18 @@
-// components/FooterNavigation.js
-import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const FooterNavigation = () => {
   const navigate = useNavigation();
+
   const renderCreateRecipeScreen = () => {
     navigate.navigate("CreateRecipe");
   };
   const renderProfileScreen = () => {
     navigate.navigate("Profile");
   };
+
   return (
     <View style={styles.navContainer}>
       <TouchableOpacity style={styles.navItem}>
@@ -22,10 +23,6 @@ const FooterNavigation = () => {
         <Icon name="magnify" size={24} color="#808080" />
         <Text style={styles.navText}>Search</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.navItem}>
-        <Icon name="plus-box" size={24} color="#808080" />
-        <Text style={styles.navText}>Post</Text>
-      </TouchableOpacity> */}
 
       <TouchableOpacity style={styles.navItem}>
         <Icon name="food" size={25} color="rgb(143, 143, 143)" />
@@ -58,17 +55,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#fff",
     borderTopWidth: 1,
-    borderTopColor: "#e0e0e0", // Light gray border color
+    borderTopColor: "#e0e0e0",
   },
   navItem: {
     alignItems: "center",
   },
   navText: {
-    color: "#808080", // Inactive color
+    color: "#808080",
     fontSize: 10,
   },
   navTextActive: {
-    color: "#FFA500", // Active color (orange)
+    color: "#FFA500",
     fontSize: 10,
   },
 });

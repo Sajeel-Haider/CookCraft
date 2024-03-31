@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -8,9 +8,17 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  Image,
 } from "react-native";
+
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import * as ImagePicker from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
+
+import config from "../config.development";
 
 const CreateRecipeScreen = () => {
   const [recipeTitle, setRecipeTitle] = useState("");
@@ -21,35 +29,36 @@ const CreateRecipeScreen = () => {
   const [youtubeLink, setYoutubeLink] = useState("");
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
 
+  const authUser = useSelector((state) => state.user);
+
+  const navigate = useNavigation();
+
+  useEffect(() => {
+    (async () => {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    })();
+  }, []);
+
   const pickImage = async () => {
     try {
-      await ImagePicker.requestCameraPermissionAsync();
-
-      let result = await ImagePicker.launchCamera({
-        cameraType: ImagePicker.CameraType.front,
-        allowsEditing: true,
-        aspect: [1, 1],
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
       });
-      if (!result.canceled) {
-      }
-    } catch (error) {}
-    // ImagePicker.launchImageLibrary({}, (response) => {
-    //   // Check if image selection is successful
-    //   if (response.didCancel) {
-    //     console.log("User cancelled image picker");
-    //   } else if (response.error) {
-    //     console.log("ImagePicker Error: ", response.error);
-    //   } else {
-    //     // Set selected image
-    //     setRecipeImage(response.uri);
-    //   }
-    // });
-  };
 
+      if (!result.cancelled) {
+        setRecipeImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log("Error picking image: ", error);
+    }
+  };
   const submitRecipe = () => {
     console.log(recipeTitle);
-    // Perform validation checks here if needed
     if (
       !recipeTitle ||
       !description ||
@@ -59,7 +68,6 @@ const CreateRecipeScreen = () => {
       !youtubeLink ||
       ingredients.some((ingredient) => !ingredient.name || !ingredient.quantity)
     ) {
-      // Display an alert or handle validation error appropriately
       Alert.alert(
         "Error",
         "Please fill in all fields before submitting the recipe."
@@ -67,39 +75,25 @@ const CreateRecipeScreen = () => {
       return;
     }
 
-    // Prepare the recipe data to be submitted
     const recipeData = {
-      title: recipeTitle,
-      description: description,
-      image: recipeImage,
+      Recipe_Title: recipeTitle,
+      Description: description,
+      image_link: recipeImage,
       portion: portion,
-      cookingTime: cookingTime,
-      youtubeLink: youtubeLink,
+      cooking_time: cookingTime,
+      youtube_link: youtubeLink,
       ingredients: ingredients,
-      // Add any additional data fields as needed
+      user: authUser._id,
     };
-    console.log(recipeData);
-    // Send the recipe data to your backend server or storage system
-    // Example fetch request to submit the recipe data
-    fetch(`${config.API_URL}:8080/submitRecipe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        //   "Authorization": 'Bearer ${userToken}'
-      },
-      body: JSON.stringify(recipeData),
-    })
+
+    axios
+      .post(`${config.API_URL}/addRecipe`, recipeData)
       .then((response) => {
-        // Handle the response from the server
-        if (response.ok) {
-          // Recipe submitted successfully, perform any necessary actions (e.g., navigation)
+        if (response.status === 200) {
           console.log("Recipe submitted successfully!");
-          // Example: Navigate to a different screen after successful submission
-          // navigation.navigate('RecipeSubmittedScreen');
+          navigate.navigate("Home");
         } else {
-          // Recipe submission failed, handle the error response
           console.error("Failed to submit recipe:", response.status);
-          // Display an alert or handle the error appropriately
           Alert.alert(
             "Error",
             "Failed to submit recipe. Please try again later."
@@ -107,16 +101,13 @@ const CreateRecipeScreen = () => {
         }
       })
       .catch((error) => {
-        // Handle any errors that occur during the fetch request
         console.error("Error submitting recipe:", error);
-        // Display an alert or handle the error appropriately
         Alert.alert(
           "Error",
           "An unexpected error occurred. Please try again later."
         );
       });
   };
-
   const handleIngredientChange = (text, index, type) => {
     const newIngredients = [...ingredients];
     if (type === "name") {
@@ -126,7 +117,6 @@ const CreateRecipeScreen = () => {
     }
     setIngredients(newIngredients);
   };
-
   const addIngredient = () => {
     setIngredients([...ingredients, { name: "", quantity: "" }]);
   };
@@ -135,6 +125,7 @@ const CreateRecipeScreen = () => {
     newIngredients.splice(index, 1);
     setIngredients(newIngredients);
   };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Post recipe</Text>
@@ -158,6 +149,7 @@ const CreateRecipeScreen = () => {
           <Icon name="camera" size={24} color="#808080" />
         )}
       </TouchableOpacity>
+
       <TextInput
         style={styles.input}
         onChangeText={setPortion}
@@ -209,7 +201,6 @@ const CreateRecipeScreen = () => {
       >
         <Icon name="plus" size={24} color="#007F73" />
       </TouchableOpacity>
-
       <Button title="Submit Recipe" onPress={submitRecipe} />
     </ScrollView>
   );
