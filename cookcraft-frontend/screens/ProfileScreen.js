@@ -16,16 +16,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 
 import config from "../config/envConfig";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
-  const profileData = {
-    name: authUser.name,
-    username: "@" + authUser.name,
-    recipesCount: recipesCount,
-    followersCount: 0,
-    followingCount: 0,
-    profileImage: require("../assets/user.png"),
-  };
   const tabItems = ["My recipe"]; //, "Tested recipe", "Cookbook"];
 
   const [recipes, setRecipes] = useState([]);
@@ -36,29 +29,39 @@ const ProfileScreen = () => {
 
   const authUser = useSelector((state) => state.user);
 
+  const navigate = useNavigation();
+
+  const profileData = {
+    name: authUser.name,
+    username: "@" + authUser.name,
+    recipesCount: recipesCount,
+    followersCount: 0,
+    followingCount: 0,
+    profileImage: require("../assets/user.png"),
+  };
+
   useEffect(() => {
     const initialMenuVisibilities = recipes.map(() => false);
     setMenuVisibilities(initialMenuVisibilities);
   }, [recipes]);
-  useEffect(() => {
-    console.log(authUser);
-    const fetchRecipes = async () => {
-      try {
-        const response = await axios
-          .get(`${config.API_URL}/recipes/${authUser._id}`)
-          .then((response) => {
-            if (response === 401) {
-              console.log(response);
-            }
-            console.log("ELbtnt", response.data.length);
-            setRecipesCount(response.data.length);
-            setRecipes(response.data);
-          });
-      } catch (error) {
-        console.error("Error fetching recipes", error);
-      }
-    };
 
+  const fetchRecipes = async () => {
+    try {
+      const response = await axios
+        .get(`${config.API_URL}/recipes/${authUser._id}`)
+        .then((response) => {
+          if (response === 401) {
+            console.log(response);
+          }
+          setRecipesCount(response.data.length);
+          setRecipes(response.data);
+        });
+    } catch (error) {
+      console.log("Error fetching recipes");
+    }
+  };
+
+  useEffect(() => {
     fetchRecipes();
   }, [authUser._id]);
 
@@ -90,17 +93,19 @@ const ProfileScreen = () => {
               );
               if (response.status === 200) {
                 console.log("Recipe deleted successfully");
-                fetchRecipes();
+                navigate.navigate("Home");
               } else {
                 console.log("Failed to delete recipe");
               }
+              fetchRecipes();
             },
           },
         ],
         { cancelable: false }
       );
     } catch (error) {
-      console.log("Error deleting recipe: ", error);
+      fetchRecipes();
+      console.log("Error deleting recipe: ");
     }
   };
 

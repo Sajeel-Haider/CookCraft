@@ -201,7 +201,11 @@ const CreateRecipeScreen = () => {
       >
         <Icon name="plus" size={24} color="#007F73" />
       </TouchableOpacity>
-      <Button title="Submit Recipe" onPress={submitRecipe} />
+      <TouchableOpacity onPress={submitRecipe}>
+        <View style={styles.addButton}>
+          <Text style={styles.addButtonText}>Add Recipe</Text>
+        </View>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -209,7 +213,7 @@ const CreateRecipeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 6,
     backgroundColor: "#fff",
   },
   header: {

@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 import config from "../config/envConfig";
+import { useDispatch } from "react-redux";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -21,6 +22,8 @@ const SignUpPage = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const navigate = useNavigation();
+
+  const dispatch = useDispatch();
 
   const renderLoginPage = () => {
     navigate.navigate("Login");
@@ -45,8 +48,9 @@ const SignUpPage = () => {
       })
       .then((response) => {
         console.log("Signup successful:", response.data);
-        AsyncStorage.setItem("userToken", response.data.token);
-        renderHomePage();
+        // AsyncStorage.setItem("userToken", response.data.token);
+        dispatch(setAuthUser(response.data.user));
+        renderLoginPage();
       })
       .catch((error) => {
         if (error.response) {

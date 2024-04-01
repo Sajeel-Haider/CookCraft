@@ -28,18 +28,18 @@ const HomeScreen = () => {
 
   const navigate = useNavigation();
 
+  const fetchRecipes = async () => {
+    try {
+      const response = await axios.get(`${config.API_URL}/recipes`);
+      setCardData(response.data);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
+
   useEffect(() => {
-    console.log(cardData);
-    const fetchRecipes = async () => {
-      try {
-        const response = await axios.get(`${config.API_URL}/recipes`);
-        setCardData(response.data);
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
-      }
-    };
     fetchRecipes();
-  }, []);
+  });
 
   return (
     <ScrollView style={styles.container}>
