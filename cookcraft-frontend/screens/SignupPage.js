@@ -10,9 +10,10 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 import config from "../config/envConfig";
-import { useDispatch } from "react-redux";
+import { setAuthUser } from "../store/slices/authUser-slice";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
