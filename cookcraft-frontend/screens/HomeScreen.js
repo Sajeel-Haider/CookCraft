@@ -58,15 +58,17 @@ const HomeScreen = () => {
               alignItems: "center",
             }}
           >
-            <Image
-              source={userProfileImage}
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 30,
-                marginRight: 10,
-              }}
-            />
+            <TouchableOpacity onPress={() => navigate.navigate("Profile")}>
+              <Image
+                source={userProfileImage}
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 30,
+                  marginRight: 10,
+                }}
+              />
+            </TouchableOpacity>
             <View>
               <Text>Welcome👋</Text>
               <Text>{user.name}</Text>
