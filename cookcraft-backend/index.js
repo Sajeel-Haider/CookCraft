@@ -4,12 +4,14 @@ const connectDB = require("./database/db");
 const bodyParser = require("body-parser");
 
 require("./models/User");
-require("./models/recipe")
+require("./models/recipe");
+require("./models/Menu");
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const add_recipe = require("./routes/add_recipe");
-const show_all_recipe=require("./routes/show_all_recipes");
+const show_all_recipe = require("./routes/show_all_recipes");
+const menuRoutes = require("./routes/menuRoutes");
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,6 +21,7 @@ app.use(cors());
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(add_recipe);
+app.use(menuRoutes);
 app.use(show_all_recipe);
 
 const startApp = async () => {

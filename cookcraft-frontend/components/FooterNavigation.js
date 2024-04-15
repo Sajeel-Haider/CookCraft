@@ -12,7 +12,9 @@ const FooterNavigation = () => {
   const renderProfileScreen = () => {
     navigate.navigate("Profile");
   };
-
+  const renderMealPage = () => {
+    navigate.navigate("Meal");
+  };
   return (
     <View style={styles.navContainer}>
       <TouchableOpacity style={styles.navItem}>
@@ -24,7 +26,7 @@ const FooterNavigation = () => {
         <Text style={styles.navText}>Search</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.navItem}>
+      <TouchableOpacity style={styles.navItem} onPress={renderMealPage}>
         <Icon name="food" size={25} color="rgb(143, 143, 143)" />
 
         <Text style={styles.navText}>Meals</Text>

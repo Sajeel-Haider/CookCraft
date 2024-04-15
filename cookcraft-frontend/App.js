@@ -2,7 +2,7 @@ import AppNavigation from "./navigation";
 import { StatusBar } from "react-native";
 import store from "./store/index";
 import { Provider } from "react-redux";
-
+import { ModalPortal } from "react-native-modals";
 import { Provider as PaperProvider } from "react-native-paper";
 export default function App() {
   return (
@@ -15,6 +15,7 @@ export default function App() {
           translucent={false}
         ></StatusBar>
         <AppNavigation></AppNavigation>
+        <ModalPortal />
       </Provider>
     </PaperProvider>
   );
