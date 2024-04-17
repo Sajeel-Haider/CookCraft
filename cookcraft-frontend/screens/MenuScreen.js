@@ -66,7 +66,7 @@ const MenuScreen = () => {
           flexDirection: "row",
           alignItems: "center",
           padding: 10,
-          backgroundColor: "#fd5c63",
+          backgroundColor: "#007F73",
         }}
       >
         <Text
@@ -279,7 +279,7 @@ const MenuScreen = () => {
                     >
                       <View
                         style={{
-                          backgroundColor: "#fd5c63",
+                          backgroundColor: "#007F73",
                           paddingHorizontal: 7,
                           paddingVertical: 4,
                           borderRadius: 20,
@@ -306,7 +306,7 @@ const MenuScreen = () => {
               <View>
                 <View
                   style={{
-                    backgroundColor: "#E0E0E0",
+                    backgroundColor: "#007F73",
                     paddingHorizontal: 12,
                     paddingVertical: 3,
                     marginVertical: 5,
@@ -338,7 +338,7 @@ const MenuScreen = () => {
                     >
                       <View
                         style={{
-                          backgroundColor: "#fd5c63",
+                          backgroundColor: "#007F73",
                           paddingHorizontal: 7,
                           paddingVertical: 4,
                           borderRadius: 20,
@@ -456,7 +456,7 @@ const MenuScreen = () => {
         />
         <Pressable
           onPress={addDishToMenu}
-          style={{ padding: 10, backgroundColor: "#fd5c63", borderRadius: 6 }}
+          style={{ padding: 10, backgroundColor: "#007F73", borderRadius: 6 }}
         >
           <Text
             style={{

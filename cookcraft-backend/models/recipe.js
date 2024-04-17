@@ -28,6 +28,9 @@ const recipeSchema = new mongoose.Schema({
   cooking_time: {
     type: String,
   },
+  tips: {
+    type: String,
+  },
   ingredients: [ingredientSchema],
   user: {
     type: mongoose.Schema.Types.ObjectId,

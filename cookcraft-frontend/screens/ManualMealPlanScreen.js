@@ -447,7 +447,7 @@ const ManualMealPlanScreen = () => {
 
             <View
               style={{
-                backgroundColor: "#fd5c63",
+                backgroundColor: "#4CCD99",
                 padding: 10,
                 borderRadius: 6,
                 justifyContent: "center",
@@ -476,7 +476,7 @@ const ManualMealPlanScreen = () => {
               <Pressable
                 onPress={copyItems}
                 style={{
-                  backgroundColor: "#DB7093",
+                  backgroundColor: "#4CCD99",
                   width: 100,
                   padding: 10,
                   borderRadius: 20,
@@ -495,7 +495,7 @@ const ManualMealPlanScreen = () => {
               </Pressable>
               <Pressable
                 style={{
-                  backgroundColor: "#DB7093",
+                  backgroundColor: "#4CCD99",
                   width: 100,
                   padding: 10,
                   borderRadius: 20,
@@ -541,7 +541,7 @@ const ManualMealPlanScreen = () => {
             <Pressable
               onPress={deleteItemsByDate}
               style={{
-                backgroundColor: "#DB7093",
+                backgroundColor: "#4CCD99",
                 width: 140,
                 padding: 10,
                 borderRadius: 20,
