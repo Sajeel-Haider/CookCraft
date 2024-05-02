@@ -1,9 +1,8 @@
 import React from "react";
 import { View, TextInput } from "react-native";
-
 import { Icon } from "react-native-elements";
 
-const SearchBar = () => {
+const SearchBar = ({ setSearch }) => {
   return (
     <View
       style={{
@@ -23,6 +22,7 @@ const SearchBar = () => {
           paddingLeft: 10,
           marginRight: 5,
         }}
+        onChangeText={(text) => setSearch(text)} // Use onChangeText for handling text input
         placeholder="Search"
         placeholderTextColor="#9ca3af"
       />

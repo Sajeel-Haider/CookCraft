@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const IngredientsSection = () => {
-  const [ingredients, setIngredients] = useState([
-    { name: "🍗 Chicken", selected: false },
-    { name: "🥔 Potato", selected: false },
-    { name: "🥕 Carrot", selected: false },
-  ]);
-
+const IngredientsSection = ({
+  ingredients,
+  setIngredients,
+  selectedIngredients,
+  setSelectedIngredients,
+}) => {
   const toggleSelection = (index) => {
     setIngredients((prevIngredients) =>
       prevIngredients.map((ingr, i) =>
