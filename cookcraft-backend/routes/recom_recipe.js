@@ -8,7 +8,7 @@ app.post("/api/recommend", (req, res) => {
     args: [JSON.stringify(req.body.ingredients)], // Passing ingredients as JSON
   };
 
-  PythonShell.run("recommend.py", options, function (err, results) {
+  PythonShell.run("recom_recipe.py", options, function (err, results) {
     if (err) {
       console.error(err);
       res.status(500).send("Error running recommendation model");

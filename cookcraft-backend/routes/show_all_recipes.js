@@ -38,4 +38,19 @@ router.get("/recipes", async (req, res) => {
   }
 });
 
+router.get("/recipe/:recipeId", (req, res) => {
+  const { recipeId } = req.params;
+  Recipe.findById(recipeId)
+    .then((recipe) => {
+      if (recipe) {
+        res.json(recipe);
+      } else {
+        res.status(404).json({ error: "Recipe not found" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Error fetching recipe" });
+    });
+});
+
 module.exports = router;

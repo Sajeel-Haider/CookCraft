@@ -14,7 +14,10 @@ const MealScreen = () => {
         >
           <Text style={styles.buttonText}>Manual Menu</Text>
         </Pressable>
-        <Pressable style={[styles.button, styles.secondaryButton]}>
+        <Pressable
+          style={[styles.button, styles.secondaryButton]}
+          onPress={() => navigate.navigate("AutoMealPlan")}
+        >
           <Text style={styles.buttonText}>Automated Menu</Text>
         </Pressable>
       </View>
