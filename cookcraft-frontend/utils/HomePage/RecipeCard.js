@@ -1,15 +1,39 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-const RecipeCard = ({ image_link, Recipe_Title, cooking_time, user }) => {
+const RecipeCard = ({
+  image_link,
+  Recipe_Title,
+  cooking_time,
+  user,
+  averageRating,
+  ratings,
+}) => {
+  // Function to render stars based on the average rating
+  const renderStars = (rating) => {
+    console.log(rating);
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    return (
+      <>
+        {Array(fullStars).fill(<Icon name="star" size={16} color="#FFD700" />)}
+        {halfStar > 0 && <Icon name="star-half" size={16} color="#FFD700" />}
+        {Array(emptyStars).fill(
+          <Icon name="star-o" size={16} color="#FFD700" />
+        )}
+      </>
+    );
+  };
+
   return (
     <View style={styles.cardContainer}>
       <Image source={{ uri: image_link }} style={styles.image} />
       <Text style={styles.title}>{Recipe_Title}</Text>
       <View style={styles.infoContainer}>
-        <Text style={styles.rating}> ⭐</Text>
+        <View style={styles.rating}>{renderStars(averageRating)}</View>
         <Text style={styles.time}>{cooking_time}</Text>
-        {/* <Text style={styles.author}>{authorName}</Text> */}
       </View>
     </View>
   );
@@ -39,13 +63,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   rating: {
-    fontSize: 16,
-    color: "#FFA000",
+    flexDirection: "row",
+    alignItems: "center",
   },
   time: {
-    fontSize: 16,
-  },
-  author: {
     fontSize: 16,
   },
 });

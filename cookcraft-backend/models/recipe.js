@@ -36,6 +36,19 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  ratings: [
+    {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      rating: Number,
+    },
+  ],
+  averageRating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 mongoose.model("Recipe", recipeSchema, "recipe");

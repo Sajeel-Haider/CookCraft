@@ -53,4 +53,29 @@ router.get("/recipe/:recipeId", (req, res) => {
     });
 });
 
+router.post("/recipes/rate/:recipeId", async (req, res) => {
+  const { userId, rating } = req.body;
+  try {
+    const recipe = await Recipe.findById(req.params.recipeId);
+    if (!recipe) {
+      return res.status(404).send("Recipe not found");
+    }
+    const existingRatingIndex = recipe.ratings.findIndex(
+      (r) => r.userId.toString() === userId.toString()
+    );
+    if (existingRatingIndex !== -1) {
+      recipe.ratings[existingRatingIndex].rating = rating;
+    } else {
+      recipe.ratings.push({ userId, rating });
+    }
+    recipe.averageRating =
+      recipe.ratings.reduce((acc, curr) => acc + curr.rating, 0) /
+      recipe.ratings.length;
+    await recipe.save();
+    res.json({ averageRating: recipe.averageRating });
+  } catch (error) {
+    res.status(500).send("Error rating the recipe: " + error);
+  }
+});
+
 module.exports = router;

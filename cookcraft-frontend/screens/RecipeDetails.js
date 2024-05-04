@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,12 +11,50 @@ import {
   Modal,
   Alert,
 } from "react-native";
+import axios from "axios";
+import config from "../config/envConfig";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "../store/slices/authUser-slice";
+import { useSelector } from "react-redux";
+import StarRating from "./StarRating";
 const RecipeDetails = ({ route }) => {
   const { recipe } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user);
+
+  const handleFollow = () => {
+    axios
+      .post(`${config.API_URL}/user/follow`, {
+        userId: currentUser._id, // Assuming _id is the identifier in your schema
+        followUserId: recipe.user,
+      })
+      .then((response) => {
+        dispatch(setAuthUser(response.data));
+        Alert.alert("Follow successful!");
+      })
+      .catch((error) => {
+        console.error("Failed to follow user: ", error);
+      });
+  };
+
+  useEffect(() => {
+    if (recipe.user) {
+      axios
+        .get(`${config.API_URL}/user/${recipe.user}`)
+        .then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user details: ", error);
+        });
+    }
+  }, [recipe.user]);
 
   const openYouTubeLink = () => {
     const youtubeLink = recipe.youtube_link;
@@ -30,16 +68,19 @@ const RecipeDetails = ({ route }) => {
       <Image source={{ uri: recipe.image_link }} style={styles.image} />
       <Text style={styles.title}>{recipe.Recipe_Title}</Text>
       <View style={styles.userInfo}>
-        <TouchableOpacity style={styles.followButton}>
+        <Text>@{user ? user?.name : "Loading..."}</Text>
+        <TouchableOpacity style={styles.followButton} onPress={handleFollow}>
           <Text style={styles.followButtonText}>Follow</Text>
         </TouchableOpacity>
-        <Icon
-          name="info-circle"
-          size={30}
-          color="#007AFF"
-          onPress={() => setModalVisible(true)}
-        />
+        <StarRating recipeId={recipe._id} />
       </View>
+      <Icon
+        name="info-circle"
+        size={30}
+        color="#007AFF"
+        onPress={() => setModalVisible(true)}
+        style={styles.tipIcon}
+      />
       <Modal
         animationType="slide"
         transparent={true}
@@ -113,6 +154,9 @@ const styles = StyleSheet.create({
   ingredient: {
     fontSize: 16,
     marginVertical: 4,
+  },
+  tipIcon: {
+    paddingLeft: 20,
   },
   centeredView: {
     flex: 1,

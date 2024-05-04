@@ -26,6 +26,8 @@ const ProfileScreen = () => {
   const [menuVisibilities, setMenuVisibilities] = useState([]);
   const [recipesCount, setRecipesCount] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   const authUser = useSelector((state) => state.user);
 
@@ -35,8 +37,8 @@ const ProfileScreen = () => {
     name: authUser.name,
     username: "@" + authUser.name,
     recipesCount: recipesCount,
-    followersCount: 0,
-    followingCount: 0,
+    followersCount: followersCount,
+    followingCount: followingCount,
     profileImage: require("../assets/user.png"),
   };
 
@@ -63,7 +65,24 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     fetchRecipes();
+    fetchUserCounts();
   }, [authUser._id]);
+
+  const fetchUserCounts = async () => {
+    try {
+      const followersResponse = await axios.get(
+        `${config.API_URL}/user/followers/count/${authUser._id}`
+      );
+      const followingResponse = await axios.get(
+        `${config.API_URL}/user/following/count/${authUser._id}`
+      );
+      console.log(followersResponse.data.count, followingResponse.data.count);
+      setFollowersCount(followersResponse.data.count);
+      setFollowingCount(followingResponse.data.count);
+    } catch (error) {
+      console.error("Error fetching user counts: ", error);
+    }
+  };
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
