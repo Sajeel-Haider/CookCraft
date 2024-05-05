@@ -6,6 +6,8 @@ import { IoMdSettings } from "react-icons/io";
 import { MdSpaceDashboard } from "react-icons/md";
 import { ImStatsDots } from "react-icons/im";
 import { FaUsers } from "react-icons/fa";
+import { Typography, Paper } from "@mui/material";
+import UserChart from "../../../components/Dashboard/AdminDashboard/UserChart"; // Assuming this is a component you will create for charting user stats
 
 const AdminDashboard = ({ children }) => {
   const navigate = useNavigate();
@@ -32,16 +34,6 @@ const AdminDashboard = ({ children }) => {
           text="Users"
           onClick={() => updateNavigateUrl("users")}
         />
-        <SidebarItem
-          icon={<FaUsers />}
-          text="Add Problem"
-          onClick={() => updateNavigateUrl("addProblem")}
-        />
-        <SidebarItem
-          icon={<FaUsers />}
-          text="Remove Problem"
-          onClick={() => updateNavigateUrl("removeProblem")}
-        />
         <hr className="my-3" />
         <SidebarItem
           icon={<IoMdSettings />}
@@ -49,7 +41,7 @@ const AdminDashboard = ({ children }) => {
           onClick={() => updateNavigateUrl("settings")}
         />
       </Sidebar>
-      <div className="p-4 text-white">{children}</div>
+      <div className="flex-grow p-4">{children}</div>
     </div>
   );
 };

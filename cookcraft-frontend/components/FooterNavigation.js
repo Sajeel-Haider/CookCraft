@@ -15,13 +15,20 @@ const FooterNavigation = () => {
   const renderMealPage = () => {
     navigate.navigate("Meal");
   };
+  const renderHomePage = () => {
+    navigate.navigate("Home");
+  };
+  const renderGroceryPage = () => {
+    navigate.navigate("GroceryList");
+  };
+
   return (
     <View style={styles.navContainer}>
-      <TouchableOpacity style={styles.navItem}>
+      <TouchableOpacity style={styles.navItem} onPress={renderHomePage}>
         <Icon name="home" size={24} color="#FFA500" />
         <Text style={styles.navTextActive}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
+      <TouchableOpacity style={styles.navItem} onPress={renderGroceryPage}>
         <Icon name="magnify" size={24} color="#808080" />
         <Text style={styles.navText}>Search</Text>
       </TouchableOpacity>

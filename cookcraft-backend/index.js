@@ -12,6 +12,7 @@ const authRoutes = require("./routes/authRoutes");
 const add_recipe = require("./routes/add_recipe");
 const show_all_recipe = require("./routes/show_all_recipes");
 const menuRoutes = require("./routes/menuRoutes");
+const groceryItemRoutes = require("./routes/groceryItemRoutes");
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,6 +24,7 @@ app.use(userRoutes);
 app.use(add_recipe);
 app.use(menuRoutes);
 app.use(show_all_recipe);
+app.use(groceryItemRoutes);
 
 const startApp = async () => {
   try {

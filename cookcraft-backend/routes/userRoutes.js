@@ -71,4 +71,54 @@ router.get("/user/following/count/:userId", async (req, res) => {
   }
 });
 
+// Endpoint to fetch daily visits (mock data)
+// router.get("/stats/daily-visits", async (req, res) => {
+//   try {
+//     const today = new Date();
+//     today.setHours(0, 0, 0, 0);
+
+//     const yesterday = new Date(today);
+//     yesterday.setDate(yesterday.getDate() - 1);
+
+//     const visits = await Visit.aggregate([
+//       {
+//         $match: {
+//           timestamp: {
+//             $gte: yesterday,
+//             $lt: today,
+//           },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: {
+//             year: { $year: "$timestamp" },
+//             month: { $month: "$timestamp" },
+//             day: { $dayOfMonth: "$timestamp" },
+//           },
+//           count: { $sum: 1 },
+//         },
+//       },
+//       {
+//         $sort: { "_id.year": 1, "_id.month": 1, "_id.day": 1 },
+//       },
+//     ]);
+
+//     res.json(visits);
+//   } catch (error) {
+//     console.error("Failed to retrieve daily visits:", error);
+//     res.status(500).send("Error retrieving daily visits");
+//   }
+// });
+
+// Endpoint to fetch user statistics
+router.get("/stats/users", async (req, res) => {
+  try {
+    const usersCount = await User.countDocuments();
+    res.json({ count: usersCount });
+  } catch (error) {
+    res.status(500).send("Error retrieving user count");
+  }
+});
+
 module.exports = router;

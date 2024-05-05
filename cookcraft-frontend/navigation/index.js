@@ -13,6 +13,7 @@ import MealScreen from "../screens/MealScreen";
 import MenuScreen from "../screens/MenuScreen";
 import ManualMealPlanScreen from "../screens/ManualMealPlanScreen";
 import AutoMealPlanScreen from "../screens/AutoMealPlanScreen";
+import GroceryList from "../screens/GroceryList";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ function AppNavigation() {
         <Stack.Screen name="ManualMealPlan" component={ManualMealPlanScreen} />
         <Stack.Screen name="AutoMealPlan" component={AutoMealPlanScreen} />
         <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="GroceryList" component={GroceryList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

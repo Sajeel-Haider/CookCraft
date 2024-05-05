@@ -10,22 +10,18 @@ import PrivateRoute from "./PrivateRoute";
 import Users from "../pages/Dashboard/AdminDashboard/Users";
 import AddProblem from "../pages/Dashboard/AdminDashboard/AddProblem";
 import Repositories from "../pages/Dashboard/UserDashboard/Repositories";
+import Dashboard from "../pages/Dashboard/AdminDashboard/Dashboard";
 
 const index = () => {
   const isAdmin = true; // Determine if user is admin
 
   return (
     <Routes>
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
 
       <Route
         path="/adminDashboard"
         element={<PrivateRoute component={<AdminDashboard />} />}
-      />
-      <Route
-        path="/userDashboard"
-        element={<PrivateRoute component={<UserDashboard />} />}
       />
       <Route
         path="/adminDashboard/*"
@@ -33,21 +29,11 @@ const index = () => {
           <AdminDashboard>
             <Routes>
               <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="users" element={<Users />} />
               <Route path="addProblem" element={<AddProblem />} />
             </Routes>
           </AdminDashboard>
-        }
-      />
-      <Route
-        path="/userDashboard/*"
-        element={
-          <UserDashboard>
-            <Routes>
-              <Route index element={<UserDashboard />} />
-              <Route path="repositories" element={<Repositories />} />
-            </Routes>
-          </UserDashboard>
         }
       />
     </Routes>

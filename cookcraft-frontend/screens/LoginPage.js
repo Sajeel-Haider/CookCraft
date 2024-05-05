@@ -45,9 +45,13 @@ const LoginPage = () => {
     axios
       .post(`${config.API_URL}/login`, userData)
       .then((response) => {
-        console.log("Login successful:", response.data);
-        dispatch(setAuthUser(response.data.user));
-        renderHomeScreen();
+        console.log("Login successful:", response.data.user?.isAdmin);
+        if (response.data.user?.isAdmin === 1) {
+          console.log("Admin Access is not allowed");
+        } else {
+          dispatch(setAuthUser(response.data.user));
+          renderHomeScreen();
+        }
       })
       .catch((error) => {
         console.error("Error signing in:", error.message);

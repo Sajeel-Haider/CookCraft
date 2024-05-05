@@ -24,16 +24,18 @@ const Login = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          toast.success(res.data.message);
-          dispatch(setAuthUser(res.data.user));
-          setTimeout(() => {
-            console.log(res.data.user.is_admin);
-            if (res.data.user.is_admin) {
-              navigate("/adminDashboard");
-            } else {
-              navigate("/userDashboard");
-            }
-          }, 5000);
+          if (res.data.user?.isAdmin === 0) {
+            toast.warn("You can only access Admin Profile");
+          } else {
+            toast.success(res.data.message);
+            dispatch(setAuthUser(res.data.user));
+            setTimeout(() => {
+              console.log(res.data.user?.isAdmin);
+              if (res.data.user?.isAdmin) {
+                navigate("/adminDashboard");
+              }
+            }, 5000);
+          }
         }
         if (res.status === 400) {
           toast.warn(res.data.message);
@@ -59,10 +61,7 @@ const Login = () => {
             <legend className="mb-1 text-4xl font-medium">
               Welcome Back !
             </legend>
-            <p className="mb-6 text-sm text-gray-500">
-              Your codes have been on a wild adventure while you were away!
-              Let's give them a little boost, shall we?
-            </p>
+
             <legend className="mb-4 text-2xl font-small">Login</legend>
             <div className="mb-12">
               <div className="mb-4">
@@ -91,23 +90,7 @@ const Login = () => {
             >
               Login
             </button>
-            <div className="mt-4 text-center">
-              <button
-                type="button"
-                className="w-full p-3 hover:bg-gray-500 bg-black text-white rounded-lg font-medium"
-              >
-                Login with Google
-              </button>
-            </div>
           </form>
-          <div className="text-right mb-4">
-            <span className="inline-block text-sm text-black bg-white p-2 rounded-2xl">
-              Create your account?{" "}
-              <a href="/signup" className="text-blue-500 hover:text-blue-700">
-                Sign Up
-              </a>
-            </span>
-          </div>
         </div>
       </div>
       <ToastContainer />
