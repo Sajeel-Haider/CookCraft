@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import DeleteConfirmationModal from "../../../utils/Modals/DeleteComfirmationModel";
 
 const UserTable = ({ userData }) => {
@@ -48,47 +46,27 @@ const UserTable = ({ userData }) => {
             <th className="px-4 py-2 border hidden md:table-cell">User Id</th>
             <th className="px-4 py-2 border">Username</th>
             <th className="px-4 py-2 border hidden md:table-cell">Email</th>
-            <th className="px-4 py-2 border hidden md:table-cell">Join Date</th>
-            <th className="px-4 py-2 border hidden md:table-cell">
-              Last Login
-            </th>
-            <th className="px-4 py-2 border hidden md:table-cell">Premium</th>
-            <th className="px-4 py-2 border hidden md:table-cell">
-              Premium Member From
-            </th>
-            <th className="px-4 py-2 border hidden md:table-cell">Drop</th>
+
+            <th className="px-4 py-2 border hidden md:table-cell">Delete</th>
           </tr>
         </thead>
         <tbody>
-          {userData.map((data, index) => (
+          {userData.map((user, index) => (
             <tr
               key={index}
               className={index % 2 === 0 ? "bg-gray-100" : "text-white"}
             >
               <td className="px-4 py-2 border hidden md:table-cell">
-                {data.user_id}
+                {user._id}
               </td>
-              <td className="px-4 py-2 border">{data.username}</td>
+              <td className="px-4 py-2 border">{user.name}</td>
               <td className="px-4 py-2 border hidden md:table-cell">
-                {data.email}
+                {user.email}
               </td>
-              <td className="px-4 py-2 border hidden md:table-cell">
-                {data.join_date}
-              </td>
-              <td className="px-4 py-2 border hidden md:table-cell">
-                {data.last_login ? <>{data.last_login}</> : <>-</>}
-              </td>
-              <td className="px-4 py-2 border hidden md:table-cell">
-                {data.is_premium ? "True" : "-"}
-              </td>
-              <td className="px-4 py-2 border hidden md:table-cell">
-                {data.premium_end_date
-                  ? `${data.premium_start_date} - ${data.premium_end_date}`
-                  : "-"}
-              </td>
+
               <td
                 className="px-4 py-2 border hidden md:table-cell cursor-pointer"
-                onClick={() => handleDeleteUser(data.user_id)} // Corrected onClick handler
+                onClick={() => handleDeleteUser(user._id)}
               >
                 <MdDelete />
               </td>

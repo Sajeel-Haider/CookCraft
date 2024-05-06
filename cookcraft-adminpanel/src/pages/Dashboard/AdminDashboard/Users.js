@@ -10,10 +10,10 @@ const Users = () => {
 
   const fetchAllUsers = () => {
     try {
-      axios.get(`${process.env.REACT_APP_API_URL}/api/allUsers`).then((res) => {
+      axios.get(`${process.env.REACT_APP_API_URL}/users`).then((res) => {
         if (res.status === 200) {
-          setUserData(res.data.data.rows);
-          console.log(userData);
+          setUserData(res.data);
+          console.log(res.data);
         }
         if (res.status === 204) {
           toast.warn("No users found");

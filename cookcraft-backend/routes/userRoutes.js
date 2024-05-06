@@ -27,6 +27,22 @@ router.get("/user/:id", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+// Route to delete a user by ID
+router.delete("/api/deleteUser/:userId", async (req, res) => {
+  try {
+    const result = await User.findByIdAndDelete(req.params.userId);
+    if (result) {
+      res.status(200).send({ message: "User deleted successfully" });
+    } else {
+      res.status(404).send({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Assuming express and mongoose setup is already done.
 router.post("/user/follow", async (req, res) => {
   const { userId, followUserId } = req.body;

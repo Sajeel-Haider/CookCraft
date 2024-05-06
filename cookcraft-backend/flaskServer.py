@@ -27,4 +27,4 @@ def recommend():
     return jsonify(transformed_recipes)
 
 if __name__ == '__main__':
-    app.run(host="192.168.10.8",debug=True, port=5000)
+    app.run(host="192.168.235.240",debug=True, port=5000)
