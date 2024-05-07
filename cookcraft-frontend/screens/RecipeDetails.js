@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { setAuthUser } from "../store/slices/authUser-slice";
 import { useSelector } from "react-redux";
 import StarRating from "./StarRating";
+
 const RecipeDetails = ({ route }) => {
   const { recipe } = route.params;
 
@@ -30,12 +31,19 @@ const RecipeDetails = ({ route }) => {
   const handleFollow = () => {
     axios
       .post(`${config.API_URL}/user/follow`, {
-        userId: currentUser._id, // Assuming _id is the identifier in your schema
+        userId: currentUser._id,
         followUserId: recipe.user,
       })
       .then((response) => {
-        dispatch(setAuthUser(response.data));
-        Alert.alert("Follow successful!");
+        if (response.status === 201) {
+          console.log(response);
+          Alert.alert(response.data.message);
+        } else if (response.status === 202) {
+          Alert.alert(response.data.message);
+        } else {
+          dispatch(setAuthUser(response.data));
+          Alert.alert("Follow successful!");
+        }
       })
       .catch((error) => {
         console.error("Failed to follow user: ", error);

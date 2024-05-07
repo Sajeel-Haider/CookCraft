@@ -5,6 +5,7 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -41,6 +42,14 @@ const SignUpPage = () => {
       console.error("All fields are required");
       return;
     }
+
+    // Password length validation
+    if (password.length < 3 || password.length > 30) {
+      Alert.alert("Password must be between 3 and 30 characters");
+
+      return;
+    }
+
     axios
       .post(`${config.API_URL}/signup`, {
         name: name,

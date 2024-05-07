@@ -29,8 +29,8 @@ const FooterNavigation = () => {
         <Text style={styles.navTextActive}>Home</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={renderGroceryPage}>
-        <Icon name="magnify" size={24} color="#808080" />
-        <Text style={styles.navText}>Search</Text>
+        <Icon name="cart-minus" size={24} color="#808080" />
+        <Text style={styles.navText}>Grocery</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.navItem} onPress={renderMealPage}>

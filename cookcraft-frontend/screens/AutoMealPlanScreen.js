@@ -24,7 +24,11 @@ const AutoMealPlanScreen = () => {
     axios
       .post(`${config.FLASK_API_URL}/recommend`, postData)
       .then((response) => {
-        const ids = response.data.map((item) => item._id);
+        const fetchedRecipes = response.data;
+        const filteredRecipes = fetchedRecipes.filter(
+          (recipe) => recipe.similarity_score > 0.3
+        );
+        const ids = filteredRecipes.map((item) => item._id);
         setRecipeIds(ids);
       })
       .catch((error) => {

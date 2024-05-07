@@ -79,10 +79,6 @@ const LoginPage = () => {
         secureTextEntry
       />
 
-      <TouchableOpacity onPress={() => console.log("Forgot Password")}>
-        <Text style={styles.forgotPassword}>Forgot Password?</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
         <Text style={styles.signInButtonText}>Login</Text>
       </TouchableOpacity>

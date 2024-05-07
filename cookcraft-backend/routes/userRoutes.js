@@ -46,19 +46,37 @@ router.delete("/api/deleteUser/:userId", async (req, res) => {
 // Assuming express and mongoose setup is already done.
 router.post("/user/follow", async (req, res) => {
   const { userId, followUserId } = req.body;
+
+  // Check if userId is the same as followUserId (user follows themselves)
+  if (userId === followUserId) {
+    return res.status(400).send("User cannot follow themselves");
+  }
+
   try {
     const user = await User.findById(userId);
     const followUser = await User.findById(followUserId);
 
-    if (!user.following.includes(followUserId)) {
-      user.following.push(followUserId); // Assuming 'following' is an array of user IDs
-      await user.save();
+    // Check if user is already following followUser
+    if (user.following.includes(followUserId)) {
+      return res
+        .status(201)
+        .send({ message: "User is already following this user" });
     }
 
-    if (!followUser.followers.includes(userId)) {
-      followUser.followers.push(userId); // Assuming 'followers' is an array of user IDs
-      await followUser.save();
+    // Check if followUser is already a follower of user
+    if (followUser.followers.includes(userId)) {
+      return res
+        .status(202)
+        .send({ message: "User is already followed by this user" });
     }
+
+    // Add followUserId to user's following list
+    user.following.push(followUserId);
+    await user.save();
+
+    // Add userId to followUser's followers list
+    followUser.followers.push(userId);
+    await followUser.save();
 
     res.json(user);
   } catch (err) {
@@ -66,6 +84,7 @@ router.post("/user/follow", async (req, res) => {
     res.status(500).send("Error updating follow status");
   }
 });
+
 // Assuming express and mongoose setup is already done.
 router.get("/user/followers/count/:userId", async (req, res) => {
   try {
