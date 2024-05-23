@@ -7,8 +7,8 @@ require("./models/User");
 require("./models/recipe");
 require("./models/Menu");
 
-const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const add_recipe = require("./routes/add_recipe");
 const show_all_recipe = require("./routes/show_all_recipes");
 const menuRoutes = require("./routes/menuRoutes");
