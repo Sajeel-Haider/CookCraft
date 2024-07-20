@@ -54,7 +54,7 @@ The mobile app provides users with a convenient platform to access a vast databa
 1. **Clone the repository**
 
    ```sh
-   git clone https://github.com/your-username/cook-craft.git
+   git clone https://github.com/Ahmed949916/CookCraft/tree/main
    cd cook-craft
 
 
