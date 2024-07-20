@@ -29,6 +29,17 @@ The mobile app provides users with a convenient platform to access a vast databa
 - **Database**: MongoDB
 - **Recommendation Algorithm**: Cosine Similarity
 
+## Screenshots
+![image](https://github.com/user-attachments/assets/c45b3036-a454-4249-a86c-07bc913a391f)
+![image](https://github.com/user-attachments/assets/1d5cb974-9777-45e0-aff3-6b19b5073252)
+![image](https://github.com/user-attachments/assets/ad5e41c0-7987-4444-89bc-05c5952a8a64)
+![image](https://github.com/user-attachments/assets/36ed5d34-4e28-41c5-8bed-3686be7021d0)
+![image](https://github.com/user-attachments/assets/539544fd-448d-4ea1-8696-9ce680d5991b)
+![image](https://github.com/user-attachments/assets/316fcd18-b86d-4821-bf29-8964c7692801)
+![image](https://github.com/user-attachments/assets/5141f5a5-9862-4a2f-b451-9665fc327a70)
+
+  
+
 ## Getting Started
 
 ### Prerequisites
@@ -45,3 +56,7 @@ The mobile app provides users with a convenient platform to access a vast databa
    ```sh
    git clone https://github.com/your-username/cook-craft.git
    cd cook-craft
+
+
+
+   I have also included proper documentation related to the project.
